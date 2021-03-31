@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from "react";
 
 
+
 function Login() {
+  var oldUsr = "";
+  var oldPwd = "";
+
+  var newUsr = "";
+  var newPwd = "";
+  var newPwdConf = "";
+  var newEmail = "";
+
   const [apiResponse, setApiResponse] = useState("");
 
   const callAPI = () => {
@@ -10,12 +19,29 @@ function Login() {
         .then(res => setApiResponse(res));
   }
   const loginCreds = (event, args) => {
-
+    if (args === "username") {
+      oldUsr = event.target.value;
+    } else {
+      oldPwd = event.target.value;
+    }
+    
   } 
 
   const signUpCreds = (event, args) => {
-
+    if (args === "username") {
+      newUsr = event.target.value;
+    } else if (args === "email"){
+      newEmail = event.target.value;
+    } else if (args === "password"){
+      newPwd = event.target.value;
+    } else {
+      newPwdConf = event.target.value;
+    }
   }
+  const test = () => {
+    console.log(newUsr + " " +newPwd+ " "+ newEmail + " "+ newPwdConf);
+  }
+
 
   useEffect(() => {
     callAPI();
@@ -31,7 +57,7 @@ function Login() {
           <input style={styles.InputFields}type="text" placeholder="Username" onChange={(e) => loginCreds(e,"username")}/>
           <input style={styles.InputFields}type="text" placeholder="Password" onChange={(e) => loginCreds(e,"password")}/>
           <a style={styles.ForgotPassword} href="">forgot password?</a>
-          <button style={styles.SignIn}>Sign In</button>
+          <button style={styles.SignIn} onClick={(e) => test()}>Sign In</button>
         </div>
         <div style={styles.SignUpBackground}>
           <p>Create Account</p>
