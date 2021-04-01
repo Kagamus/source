@@ -3,49 +3,38 @@ import React, { useState, useEffect } from "react";
 
 
 function Login() {
-  var oldUsr = "";
-  var oldPwd = "";
-
-  var newUsr = "";
-  var newPwd = "";
-  var newPwdConf = "";
-  var newEmail = "";
+  // var newUsr = "";
+  // var newPwd = "";
+  // var newPwdConf = "";
+  // var newEmail = "";
+  
 
   const [apiResponse, setApiResponse] = useState("");
+  const [oldUsr, setOldUsr] = useState("");
+  const [oldPwd, setOldPwd] = useState("");
+
+  const [newUsr, setNewUsr] = useState("");
+  const [newPwd, setNewPwd] = useState("");
+  const [newPwdConf, setnewPwdConf] = useState("");
+  const [newEmail, setNewEmail] = useState("");
 
   const callAPI = () => {
-    fetch("http://localhost:9000/testAPI")
+    fetch("http://localhost:9000/login?usr="+oldUsr+"&pwd="+oldPwd)
         .then(res => res.text())
         .then(res => setApiResponse(res));
+      
+    console.log(oldUsr+" and "+oldPwd+" equal "+apiResponse);
   }
-  const loginCreds = (event, args) => {
-    if (args === "username") {
-      oldUsr = event.target.value;
-    } else {
-      oldPwd = event.target.value;
-    }
-    
-  } 
 
-  const signUpCreds = (event, args) => {
-    if (args === "username") {
-      newUsr = event.target.value;
-    } else if (args === "email"){
-      newEmail = event.target.value;
-    } else if (args === "password"){
-      newPwd = event.target.value;
-    } else {
-      newPwdConf = event.target.value;
-    }
-  }
   const test = () => {
-    console.log(newUsr + " " +newPwd+ " "+ newEmail + " "+ newPwdConf);
+    console.log("")
   }
 
 
-  useEffect(() => {
-    callAPI();
-  });
+  /**
+   * <input style={styles.container} placeholder="Search for Anime" type="text" size='40' 
+   * value={searchQuery} onChange={e => setSearchQuery(e.target.value)} onKeyDown{handleSearch} />
+   */
 
   return (
     <div className="App">
@@ -54,19 +43,20 @@ function Login() {
         {/* <p> {apiResponse} </p> */}
         <div style={styles.LoginBackground}>
           <p>Welcome Back!</p>
-          <input style={styles.InputFields}type="text" placeholder="Username" onChange={(e) => loginCreds(e,"username")}/>
-          <input style={styles.InputFields}type="text" placeholder="Password" onChange={(e) => loginCreds(e,"password")}/>
+          
+          <input style={styles.InputFields}type="text" placeholder="Username" onChange={e => setOldUsr(e.target.value)}/>
+          <input style={styles.InputFields}type="text" placeholder="Password" onChange={e => setOldPwd(e.target.value)}/>
           <a style={styles.ForgotPassword} href="">forgot password?</a>
           <button style={styles.SignIn} onClick={(e) => test()}>Sign In</button>
         </div>
         <div style={styles.SignUpBackground}>
           <p>Create Account</p>
-          <input style={styles.InputFields}type="text" placeholder="Username" onChange={(e) => signUpCreds(e,"username")}/>
-          <input style={styles.InputFields}type="text" placeholder="Email" onChange={(e) => signUpCreds(e,"email")}/>
-          <input style={styles.InputFields}type="text" placeholder="Password" onChange={(e) => signUpCreds(e,"password")}/>
-          <input style={styles.InputFields}type="text" placeholder="Confirm Password" onChange={(e) => signUpCreds(e,"passwordConfirm")}/>
+          <input style={styles.InputFields}type="text" placeholder="Username" onChange={e => setNewUsr(e.target.value)}/>
+          <input style={styles.InputFields}type="text" placeholder="Email" onChange={e => setNewEmail(e.target.value)}/>
+          <input style={styles.InputFields}type="text" placeholder="Password" onChange={e => setNewPwd(e.target.value)}/>
+          <input style={styles.InputFields}type="text" placeholder="Confirm Password" onChange={e => setnewPwdConf(e.target.value)}/>
           
-          <button style={styles.SignUp}>Submit</button>
+          <button style={styles.SignUp} onClick={(e) => test()}>Submit</button>
         </div>
       </header>
     </div>
