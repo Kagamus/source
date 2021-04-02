@@ -48,7 +48,7 @@ router.get("/", function(req, res, next) {
     // var resultsArray = [];
     // processEntry(query);
     console.log(userName+" "+password);
-    run(userName,res).catch(console.dir);
+    run(userName,password,res).catch(console.dir);
     console.log("Processed Entry: ", returnString);
     
     
@@ -56,12 +56,12 @@ router.get("/", function(req, res, next) {
 });
 
 
-async function run(userName,res) {
+async function run(userName,userPwd,res) {
   const client = new MongoClient(dbUrl);
   try {
     await client.connect();
     const database = client.db("Kagamus");
-    const movies = database.collection("users");
+    const usersColl = database.collection("users");
     // Query for a movie that has the title 'The Room'
     const query = { user: userName };
     // const options = {
@@ -70,11 +70,15 @@ async function run(userName,res) {
     //   // Include only the `title` and `imdb` fields in the returned document
     //   projection: { _id: 0, title: 1, imdb: 1 },
     // };
-    const movie = await movies.find(query).toArray();
+    const users = await usersColl.find(query).toArray();
     // since this method returns the matched document, not a cursor, print it directly
-    if(movie.length > 0) {
-      console.log(movie);
-      setString("GoodToGo");
+      // console.log(users[0]+" "+users.length);
+      // console.log(users);
+    if(users.length > 0) {
+      // console.log(users[0].password === userPwd);
+      if(users[0].password === SHA256(userPwd).toString()){
+        setString("GoodToGo");
+      }
     }
   } finally {
     res.send(returnString);

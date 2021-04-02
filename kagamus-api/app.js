@@ -9,6 +9,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var testAPIRouter = require('./routes/testAPI');
 var loginRouter = require('./routes/login');
+var signUpRouter = require('./routes/signUp');
 
 var app = express();
 
@@ -25,6 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/login', loginRouter);
 app.use('/users', usersRouter);
+app.use('/signup', signUpRouter);
 // app.use('/testAPI', testAPIRouter);
 // app.use('/login', loginRouter);
 

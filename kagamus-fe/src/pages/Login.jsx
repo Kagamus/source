@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { toast } from 'react-toastify';
 
 
 function Login() {
@@ -18,17 +18,63 @@ function Login() {
   const [newPwdConf, setnewPwdConf] = useState("");
   const [newEmail, setNewEmail] = useState("");
 
-  const callAPI = () => {
+  const loginAPI = () => {
+      // fetch("http://localhost:9000/login")
+      //     .then(res => res.text())
+      //     .then(res => setApiResponse(res));
     fetch("http://localhost:9000/login?usr="+oldUsr+"&pwd="+oldPwd)
         .then(res => res.text())
-        .then(res => setApiResponse(res));
-      
-    console.log(oldUsr+" and "+oldPwd+" equal "+apiResponse);
+        .then(res => 
+          {
+            // console.log("Inside then",res);
+            if (res == "Invalid") {
+              console.log("Its not valid man!");
+            } else if(res =="GoodToGo") {
+              console.log("Its IS valid man!");
+
+            }
+           setApiResponse(res);
+            return res;});
+        // if (apiResponse === "GoodToGo") {
+        //   console.log("It works");
+        // } else {
+        //   console.log("It doesn't work");
+        // }
+        // console.log(apiResponse);
+  }
+  const  signUpAPI = () => {
+    if (newPwdConf === newPwd) { 
+      fetch("http://localhost:9000/signup?usr="+newUsr+"&pwd="+newPwd+"&pwdConf="+newPwdConf+"&eml="+newEmail)
+          .then(res => res.text())
+          .then(res => {
+            if(res == "Inserted") {         
+              console.log("Your account has been created!");
+            } else {
+              console.log(res);
+            }
+            setApiResponse(res);
+          });
+    } else {
+      console.log("INVALID")
+      alert("Passwords don't match!");
+    }
+    // console.log(oldUsr+" and "+oldPwd+" equal "+apiResponse);
   }
 
-  const test = () => {
-    console.log("")
+  const login = () => {
+    // console.log("")
+    loginAPI();
+
   }
+  const signUp = () => {
+    // console.log("")
+    
+    signUpAPI();
+  }
+  
+   
+
+
 
 
   /**
@@ -47,7 +93,7 @@ function Login() {
           <input style={styles.InputFields}type="text" placeholder="Username" onChange={e => setOldUsr(e.target.value)}/>
           <input style={styles.InputFields}type="text" placeholder="Password" onChange={e => setOldPwd(e.target.value)}/>
           <a style={styles.ForgotPassword} href="">forgot password?</a>
-          <button style={styles.SignIn} onClick={(e) => test()}>Sign In</button>
+          <button style={styles.SignIn} onClick={(e) => login()}>Sign In</button>
         </div>
         <div style={styles.SignUpBackground}>
           <p>Create Account</p>
@@ -56,7 +102,8 @@ function Login() {
           <input style={styles.InputFields}type="text" placeholder="Password" onChange={e => setNewPwd(e.target.value)}/>
           <input style={styles.InputFields}type="text" placeholder="Confirm Password" onChange={e => setnewPwdConf(e.target.value)}/>
           
-          <button style={styles.SignUp} onClick={(e) => test()}>Submit</button>
+          <button style={styles.SignUp} onClick={(e) => signUp()}>Submit</button>
+          <p className="errMsg"></p>
         </div>
       </header>
     </div>
