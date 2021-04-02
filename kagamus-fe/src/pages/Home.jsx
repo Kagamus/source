@@ -1,27 +1,43 @@
 import React from "react";
+import Card_Component from "../components/card_component.jsx";
 import Сard_Component from "../components/card_component.jsx"
-import img from "../test.jpg"
+import img_list from "../test_list.jpg"
+import img_logo from "../test_logo.png"
+import './Home.css';
+
+const fakeName = "SirHappi"
+const fakeData = [fakeName,'One Piece','One Piece','One Piece','One Piece','One Piece','One Piece','One Piece','One Piece','One Piece','One Piece']
 function Login() {
     
  
   return (
-      
-    <Сard_Component 
-        cardColClass={"col-sm-3 "}
-        cardBorder={"bg-secondary text-dark"}
-        cardImage = {<img src={img} width="100" height="150" />}
-        cardTitle={"One Piece"}
-    />
+    <div>
+
+    <div style = {{flexDirection:"row",display:"flex"}}>
+    <div style = {{margin:"10% 5%"}}>
+    <Card_Component animeListRequest={fakeData}></Card_Component>
+    </div>
+
+    <div style = {{margin:"10% 5%"}}>
+    <Card_Component animeListRequest={fakeData}></Card_Component>
+    </div>
+
+    <div style = {{margin:"10% 5%"}}>
+    <Card_Component animeListRequest={fakeData}></Card_Component>
+    </div>
+
+    </div> 
+
+    </div>
+
+
 
   );
 }
 
-const styles = {
-    AppCard: {
-        display: 'inline',
-        float: 'right'
-    }
-}
+
+
+
 
 
 
