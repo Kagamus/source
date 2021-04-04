@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { toast } from 'react-toastify';
+import {BrowserRouter as Router, Switch, Route, useHistory, Redirect}from 'react-router-dom'
+// import { createBrowserHistory as history} from 'history';
+// All inside the Router tags can used in tags
+
 
 
 function Login() {
-  // var newUsr = "";
-  // var newPwd = "";
-  // var newPwdConf = "";
-  // var newEmail = "";
-  
 
   const [apiResponse, setApiResponse] = useState("");
   const [oldUsr, setOldUsr] = useState("");
@@ -17,11 +16,12 @@ function Login() {
   const [newPwd, setNewPwd] = useState("");
   const [newPwdConf, setnewPwdConf] = useState("");
   const [newEmail, setNewEmail] = useState("");
-
+  
+  let history = useHistory();
+  const pushToHist = () => {
+    
+  }
   const loginAPI = () => {
-      // fetch("http://localhost:9000/login")
-      //     .then(res => res.text())
-      //     .then(res => setApiResponse(res));
     fetch("http://localhost:9000/login?usr="+oldUsr+"&pwd="+oldPwd)
         .then(res => res.text())
         .then(res => 
@@ -31,18 +31,14 @@ function Login() {
               console.log("Its not valid man!");
             } else if(res =="GoodToGo") {
               console.log("Its IS valid man!");
-
+              history.push("/home");
             }
-           setApiResponse(res);
-            return res;});
-        // if (apiResponse === "GoodToGo") {
-        //   console.log("It works");
-        // } else {
-        //   console.log("It doesn't work");
-        // }
-        // console.log(apiResponse);
+          setApiResponse(res);
+          return res;});
+
   }
   const  signUpAPI = () => {
+
     if (newPwdConf === newPwd) { 
       fetch("http://localhost:9000/signup?usr="+newUsr+"&pwd="+newPwd+"&pwdConf="+newPwdConf+"&eml="+newEmail)
           .then(res => res.text())
@@ -58,29 +54,16 @@ function Login() {
       console.log("INVALID")
       alert("Passwords don't match!");
     }
-    // console.log(oldUsr+" and "+oldPwd+" equal "+apiResponse);
   }
-
   const login = () => {
-    // console.log("")
     loginAPI();
-
+    // pushToHist();
   }
-  const signUp = () => {
-    // console.log("")
-    
+  const signUp = () => { 
     signUpAPI();
   }
   
-   
-
-
-
-
-  /**
-   * <input style={styles.container} placeholder="Search for Anime" type="text" size='40' 
-   * value={searchQuery} onChange={e => setSearchQuery(e.target.value)} onKeyDown{handleSearch} />
-   */
+  
 
   return (
     <div className="App">
@@ -94,6 +77,9 @@ function Login() {
           <input style={styles.InputFields}type="text" placeholder="Password" onChange={e => setOldPwd(e.target.value)}/>
           <a style={styles.ForgotPassword} href="">forgot password?</a>
           <button style={styles.SignIn} onClick={(e) => login()}>Sign In</button>
+          {
+            
+          }
         </div>
         <div style={styles.SignUpBackground}>
           <p>Create Account</p>

@@ -10,6 +10,7 @@ var usersRouter = require('./routes/users');
 var testAPIRouter = require('./routes/testAPI');
 var loginRouter = require('./routes/login');
 var signUpRouter = require('./routes/signUp');
+var navigationRouter = require('./routes/navigationHandler');
 
 var app = express();
 
