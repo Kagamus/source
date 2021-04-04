@@ -1,0 +1,86 @@
+[{"Genre" : "Sports",
+ "username" : "Haikyuu4LIFE",
+ "AnimeListTitle" : "Best Sports Anime",
+"AnimeList" :[
+    {
+        "id": 20583,
+        "title": "Haikyuu!!",
+        "main_picture": {
+            "medium": "https://api-cdn.myanimelist.net/images/anime/7/76014.jpg",
+            "large": "https://api-cdn.myanimelist.net/images/anime/7/76014l.jpg"
+        }
+    },
+    {
+        "id": 38883,
+        "title": "Haikyuu!!: To the Top",
+        "main_picture": {
+            "medium": "https://api-cdn.myanimelist.net/images/anime/1813/105367.jpg",
+            "large": "https://api-cdn.myanimelist.net/images/anime/1813/105367l.jpg"
+        }
+    },
+    {
+        "id": 40262,
+        "title": "Haikyuu!!: Riku vs. Kuu",
+        "main_picture": {
+            "medium": "https://api-cdn.myanimelist.net/images/anime/1527/102671.jpg",
+            "large": "https://api-cdn.myanimelist.net/images/anime/1527/102671l.jpg"
+        }
+    },
+    {
+        "id": 28891,
+        "title": "Haikyuu!! Second Season",
+        "main_picture": {
+            "medium": "https://api-cdn.myanimelist.net/images/anime/9/76662.jpg",
+            "large": "https://api-cdn.myanimelist.net/images/anime/9/76662l.jpg"
+        }
+    },
+    {
+        "id": 40776,
+        "title": "Haikyuu!!: To the Top 2nd Season",
+        "main_picture": {
+            "medium": "https://api-cdn.myanimelist.net/images/anime/1453/106768.jpg",
+            "large": "https://api-cdn.myanimelist.net/images/anime/1453/106768l.jpg"
+        }
+    },
+    {
+        "id": 32935,
+        "title": "Haikyuu!!: Karasuno Koukou vs. Shiratorizawa Gakuen Koukou",
+        "main_picture": {
+            "medium": "https://api-cdn.myanimelist.net/images/anime/7/81992.jpg",
+            "large": "https://api-cdn.myanimelist.net/images/anime/7/81992l.jpg"
+        }
+    },
+    {
+        "id": 40372,
+        "title": "Haikyuu!! (OVA)",
+        "main_picture": {
+            "medium": "https://api-cdn.myanimelist.net/images/anime/1618/102929.jpg",
+            "large": "https://api-cdn.myanimelist.net/images/anime/1618/102929l.jpg"
+        }
+    },
+    {
+        "id": 25303,
+        "title": "Haikyuu!!: Lev Genzan!",
+        "main_picture": {
+            "medium": "https://api-cdn.myanimelist.net/images/anime/1498/96643.jpg",
+            "large": "https://api-cdn.myanimelist.net/images/anime/1498/96643l.jpg"
+        }
+    },
+    {
+        "id": 35806,
+        "title": "Haikyuu!!: vs. \"Akaten\"",
+        "main_picture": {
+            "medium": "https://api-cdn.myanimelist.net/images/anime/1882/96644.jpg",
+            "large": "https://api-cdn.myanimelist.net/images/anime/1882/96644l.jpg"
+        }
+    },
+    {
+        "id": 29755,
+        "title": "Haikyuu!! Movie 1: Owari to Hajimari",
+        "main_picture": {
+            "medium": "https://api-cdn.myanimelist.net/images/anime/8/76011.jpg",
+            "large": "https://api-cdn.myanimelist.net/images/anime/8/76011l.jpg"
+        }
+    }
+]
+}]
