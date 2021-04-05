@@ -3,6 +3,7 @@ import CardComponent from "../components/cardComponent.jsx";
 import Select from 'react-select'
 import { options } from '../utils/constants.js'
 import SearchIcon from '@material-ui/icons/Search';
+import Header from '../components/Header';
 
 function Home() {
 	const [genre, setGenre] = useState({ value: '', label: '' });
@@ -23,6 +24,7 @@ function Home() {
 
 	return (
 		<div>
+			<Header currentPage={'Browse Lists'} />
 			<div style={styles.filterContainer}>
 				<Select
 					label="Single select"

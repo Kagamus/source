@@ -12,13 +12,12 @@ const Card_Component = ({ animeListRequest }) => {
 					<p style={{fontSize: '12px', color: '#333333', textAlign: 'center' }} >{animeListRequest["username"]}</p>
 
 				</div>
-				{/* <p className="animeTitle">{animeListRequest["AnimeListTitle"]}</p> */}
 
 			</div>
 			{animeListRequest["AnimeList"].map((anime, i) => {
 				return (
 					<div className="card" key={i} >
-						<img src={anime["main_picture"]["medium"]} className="cardImage"></img>
+						<img src={anime["main_picture"]["medium"]} alt="Anime" className="cardImage"></img>
 						<div className="cardTitle">
 							<p>{anime["title"]}</p>
 						</div>
