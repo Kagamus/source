@@ -6,7 +6,7 @@ var MongoClient = require('mongodb').MongoClient;
 const { move } = require("./users");
 var resultLength = 0; 
 let returnString = "Un-inserted";
-const dbUrl = "mongodb://localhost:27017/";
+const dbUrl = "mongodb+srv://kagamus_admin:vOsASAZMOq3JFkii@cluster0.ohyri.mongodb.net/test";
 function setString(string) {
   returnString = string;
 } 
@@ -33,7 +33,7 @@ async function run(userName,userEml, userPwd,res) {
   const client = new MongoClient(dbUrl);
   try {
     await client.connect();
-    const database = client.db("Kagamus");
+    const database = client.db("AnimeList");
     const usersColl = database.collection("users");
     // Query for either a user with the same User-Name or Email
     const userQuery = { user: userName };

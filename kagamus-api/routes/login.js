@@ -6,36 +6,11 @@ var MongoClient = require('mongodb').MongoClient;
 const { move } = require("./users");
 var resultLength = 0; 
 let returnString = "Invalid";
-const dbUrl = "mongodb://localhost:27017/";
+const dbUrl = "mongodb+srv://kagamus_admin:vOsASAZMOq3JFkii@cluster0.ohyri.mongodb.net/test";
 function setString(string) {
   returnString = string;
 } 
-function processEntry(query) {
-    
-    MongoClient.connect(dbUrl, function(err, db) {
-        if (err) throw err;
-        var dbo = db.db("Kagamus");
-        // var myObj = { user: userName, password: hashedPassword};
-        dbo.collection("users").find(query).toArray(function(err, result) {
-              if (err) throw err;
-              
-              
-              if (result.length.valueOf() == 0) {
-                console.log(result.length+" == "+"0");
-                console.log("inside short");
-                console.log("--------------------------------");
-                setString("Invalid Username or Password");
-                //   resultLength += 1;  
-              } else {
-                console.log("else:" + result);
-                setString("GoodToGo");
-              }
-              db.close();
-        });
-    
-    
-    });
-}
+
 
 
 router.get("/", function(req, res, next) {
@@ -60,7 +35,7 @@ async function run(userName,userPwd,res) {
   const client = new MongoClient(dbUrl);
   try {
     await client.connect();
-    const database = client.db("Kagamus");
+    const database = client.db("AnimeList");
     const usersColl = database.collection("users");
     // Query for a movie that has the title 'The Room'
     const query = { user: userName };
