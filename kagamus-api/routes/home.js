@@ -45,11 +45,11 @@ router.get('/', function(req, res, next) {
   
   MongoClient.connect(urls,{ useUnifiedTopology: true }, function(err, db) {
     if (err) throw err;
-    var dbo = db.db("myanimelists");
+    var dbo = db.db("cp476");
     
-    dbo.collection("animelists").find(query).toArray(function(err, result) {
+    dbo.collection("myLists").find(query).toArray(function(err, result) {
       if (err) throw err;
-      console.log(result);
+      // console.log(result);
       res.send(result);
       db.close();
     });
