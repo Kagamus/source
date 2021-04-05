@@ -18,9 +18,7 @@ function Login() {
   const [newEmail, setNewEmail] = useState("");
   
   let history = useHistory();
-  const pushToHist = () => {
-    
-  }
+
   const loginAPI = () => {
     fetch("http://localhost:9000/login?usr="+oldUsr+"&pwd="+oldPwd)
         .then(res => res.text())
@@ -45,6 +43,7 @@ function Login() {
           .then(res => {
             if(res == "Inserted") {         
               console.log("Your account has been created!");
+              history.push("/home");
             } else {
               console.log(res);
             }
