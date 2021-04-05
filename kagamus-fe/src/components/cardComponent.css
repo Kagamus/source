@@ -1,20 +1,34 @@
-
 .container::-webkit-scrollbar {
     display: none;
 }
   
-.container{
+.container {
     border-radius: 25px;
     border :2px solid #000;
-    width: 35vmin;
-    height: 50vmin;
+    width: 32vmin;
+    height: 45vmin;
     overflow-y: scroll;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    padding-top: 10vmin;
+}
+
+.animeCard {
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    margin-top: -10vmin;
+    height: 10vmin;
+    width: 32vmin;
+    flex-direction: row;
+    display: flex;
+    border-bottom : 2px solid #000;
+    align-items: center;
+    background-color: #E4E4E4;
+    position: absolute;
 }
 
 .card{
-    height: 12vmin;
+    height: 10vmin;
     flex-direction: row;
     display: flex;
     border-top : 1px solid #000;
@@ -22,26 +36,28 @@
     align-items: center;
 }
 
-.cardImage{
-    flex:2;
-    padding:10px;
-    width:10%;
-    height:10vmin;
+.card :hover{
+    background-color: #E3E3E3;
 }
 
-.cardTitle{
-    flex:8;
+.cardImage {
+    flex: 1.5;
+    padding: 10px;
+    height: 7vmin;
 }
 
-.animeTitle{
-    flex:8;
+.cardTitle {
+    flex: 8;
+    margin-left: 2%;
+}
+
+.animeTitle {
     text-align: center;
 }
 
-.animeImage{
-    flex:2;
-    padding:10px;
-    width:10%;
-    height:10vmin;
+.animeImage {
+    width: 7vmin;
+    padding: 10px;
+    height: 7vmin;
     border-radius: 100%;
 }
