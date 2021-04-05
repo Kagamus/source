@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var MongoClient = require('mongodb').MongoClient;
-var urls = "mongodb://localhost:27017/";
+var urls = "mongodb+srv://kagamus_admin:vOsASAZMOq3JFkii@cluster0.ohyri.mongodb.net/test";
 
 router.get('/', function (req, res, next) {
 
@@ -15,14 +15,14 @@ router.get('/', function (req, res, next) {
   } else if (keyword == "") {
     var query = { Genre: genre };
   } else if (genre == "") {
-    var query = { $text: { $search: keyword } };
+    var query = { $text: { $search: keyword } }
   } else {
     var query = { $text: { $search: keyword }, Genre: genre };
   }
 
   MongoClient.connect(urls, { useUnifiedTopology: true }, function (err, db) {
     if (err) throw err;
-    var dbo = db.db("cp476");
+    var dbo = db.db("AnimeList");
 
     dbo.collection("myLists").find(query).toArray(function (err, fetch_data) {
       if (err) throw err;
