@@ -24,7 +24,7 @@ function Home() {
 
 	return (
 		<div>
-			<Header currentPage={'Browse Lists'} />
+			<Header currentPage={'Browse Lists'} userName={'Dijksrahul'} />
 			<div style={styles.filterContainer}>
 				<Select
 					label="Single select"
@@ -53,19 +53,19 @@ function Home() {
 				</button>
 			</div>
 
-				{data.map((data_list, i) => {
-					return (
-						<div style={styles.cardContainer} key={i} >
-							{data_list.map((list, index) => {
-								return (
-									<div style={{ margin: "5% 5%" }} key={index} >
-										<CardComponent animeListRequest={list} />
-									</div>
-								);
-							})}
-						</div>
-					);
-				})}
+			{data.map((data_list, i) => {
+				return (
+					<div style={styles.cardContainer} key={i} >
+						{data_list.map((list, index) => {
+							return (
+								<div style={{ margin: "2.5% 5%" }} key={index} >
+									<CardComponent animeListRequest={list} />
+								</div>
+							);
+						})}
+					</div>
+				);
+			})}
 
 		</div>
 	);
@@ -93,11 +93,13 @@ const styles = {
 	filterContainer: {
 		flexDirection: 'row',
 		display: 'flex',
-		marginTop: "5%",
+		marginTop: "3%",
+		marginBottom: '2.5%',
 		justifyContent: 'center'
 	},
 	filterButton: {
 		outline: 'none',
+		border: 'none',
 		backgroundColor: '#3c3c3c',
 		color: '#fff',
 		borderRadius: "100px",
@@ -106,7 +108,7 @@ const styles = {
 		display: "flex"
 	},
 	cardContainer: {
-		flexDirection: "row", 
+		flexDirection: "row",
 		display: "flex",
 		justifyContent: "center"
 	}
@@ -116,7 +118,6 @@ const customStyles = {
 	menu: (provided, state) => ({
 		...provided,
 		width: state.selectProps.width,
-		// border: '1px solid black',
 		marginTop: -0.5,
 		color: state.selectProps.menuColor,
 		padding: 20,

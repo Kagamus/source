@@ -3,28 +3,22 @@ import logo from "../images/1.png"
 import SearchBar from "./SearchBar"
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
-// import { useNavigation } from 'react-navigation-hooks'
-
-
-const Header = ({currentPage}) => {
-
-    // const navigation = useNavigation();
+const Header = ({ currentPage, userName }) => {
     const routeToBrowse = () => {
         console.log("HIIIII");
-        // navigation.navigate('MyLists');
     }
 
     return (
         <div style={styles.mainContainer}>
             <img style={styles.logo} src={logo} alt="Logo" />
-            <SearchBar style={{flex: '1'}} />
-            <div style={{flex: '2.5', flexDirection: 'row', textAlign: 'center'}}>
+            <SearchBar style={{ flex: '1' }} />
+            <div style={{ flex: '2.5', flexDirection: 'row', textAlign: 'center' }}>
                 <p style={styles.navText(currentPage === 'Browse Lists')} onClick={routeToBrowse} > Browse Lists </p>
                 <p style={styles.navText(currentPage === 'My Lists')} > My Lists </p>
             </div>
             <div style={styles.userContainer}>
                 <AccountCircleIcon style={styles.icon} />
-                <p style={styles.userText} > Lorem Ipsum </p>
+                <p style={styles.userText} > {userName} </p>
             </div>
         </div>
     );
@@ -35,7 +29,7 @@ const styles = {
         flexDirection: 'row',
         alignItems: 'center',
         padding: '0.75% 2.5%',
-        backgroundColor:'rgba(0, 0, 0, 0.825)', 
+        backgroundColor: 'rgba(0, 0, 0, 0.825)',
         display: 'flex'
     },
     logo: {
@@ -62,7 +56,7 @@ const styles = {
         display: 'flex',
         justifyContent: 'flex-end',
         marginRight: '3%'
-    }, 
+    },
     icon: {
         color: "#FFF",
         height: '15%',

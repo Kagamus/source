@@ -23,7 +23,7 @@
     display: flex;
     border-bottom : 2px solid #000;
     align-items: center;
-    background-color: #E4E4E4;
+    background-color: #dddddd;
     position: absolute;
 }
 
@@ -36,14 +36,27 @@
     align-items: center;
 }
 
-.card :hover{
+.card:hover{
     background-color: #E3E3E3;
+    cursor: pointer;
+    transition: 0.75s;
+}
+
+.card:hover .goTOIcon{
+    opacity: 1;
+    transition: opacity 1s;
+}
+
+.goTOIcon {
+    margin-right: 4%;
+    opacity: 0;
 }
 
 .cardImage {
     flex: 1.5;
     padding: 10px;
     height: 7vmin;
+    max-width: 5vmin;
 }
 
 .cardTitle {

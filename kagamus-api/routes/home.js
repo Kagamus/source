@@ -11,13 +11,13 @@ router.get('/', function (req, res, next) {
   var result = [];
 
   if (keyword == "" && genre == "") {
-    var query = {}
+    var query = {};
   } else if (keyword == "") {
-    var query = { Genre: genre }
+    var query = { Genre: genre };
   } else if (genre == "") {
-    var query = { $text: { $search: keyword } }
+    var query = { $text: { $search: keyword } };
   } else {
-    var query = { $text: { $search: keyword }, Genre: genre }
+    var query = { $text: { $search: keyword }, Genre: genre };
   }
 
   MongoClient.connect(urls, { useUnifiedTopology: true }, function (err, db) {
@@ -35,7 +35,7 @@ router.get('/', function (req, res, next) {
         }
         temp.push(fetch_data[i])
       }
-      i % 3 != 0 ? result.push(temp) : null;
+      temp != [] ? result.push(temp) : null;
 
       res.send(result);
       db.close();
