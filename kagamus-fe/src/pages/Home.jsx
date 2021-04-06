@@ -48,7 +48,7 @@ function Home() {
 					/>
 				</div>
 
-				<button style={styles.filterButton} onClick={filterHandler}>
+				<button style={styles.filterButton} onClick={() => { filterHandler(); }}>
 					Apply
 				</button>
 			</div>
