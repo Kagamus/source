@@ -4,7 +4,7 @@ import Select from 'react-select'
 import { options } from '../utils/constants.js'
 import SearchIcon from '@material-ui/icons/Search';
 import Header from '../components/Header';
-import { useHistory, useLocation, useParams,BrowserRouter as Router, Route } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import queryString from 'query-string'
 
 function Home() {
