@@ -13,6 +13,7 @@ var searchAPIRouter = require('./routes/search');
 var loginRouter = require('./routes/login');
 var signUpRouter = require('./routes/signUp');
 var navigationRouter = require('./routes/navigationHandler');
+var createnewlistRouter = require('./routes/createnewList');
 
 var app = express();
 
@@ -33,6 +34,7 @@ app.use('/testAPI', testAPIRouter);
 app.use('/home', homeRouter);
 app.use('/search', searchAPIRouter);
 app.use('/signup', signUpRouter);
+app.use('/createnewList',createnewlistRouter);
 // app.use('/testAPI', testAPIRouter);
 // app.use('/login', loginRouter);
 

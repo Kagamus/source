@@ -1,10 +1,10 @@
 import Routes from './routes';
-import MyLists from './pages/MyLists';
 import React, {createContext} from "react";
-
+import MyLists from "./pages/MyLists";
 localStorage.setItem('userName',JSON.stringify(''));
 
 function App() {
+
   return (
     <div className="App">
       {/* <Routes /> */}
@@ -12,5 +12,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;
