@@ -16,6 +16,7 @@ function Home() {
 	const {username,lastname} = queryString.parse(search)
 	console.log(username)
 
+	console.log(localStorage.getItem('userName'));
 	const [error, setError] = useState('')
 
 	const location = useLocation()

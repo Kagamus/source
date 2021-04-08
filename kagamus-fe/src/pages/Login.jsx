@@ -22,6 +22,7 @@ function Login() {
         if (res === "Invalid") {
           console.log("Its not valid man!");
         } else if (res === "GoodToGo") {
+          localStorage.setItem('userName',JSON.stringify(oldUsr));
           console.log("Its IS valid man!");
           history.push("/home");
         }
