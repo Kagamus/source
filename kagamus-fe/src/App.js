@@ -1,9 +1,11 @@
 import Routes from './routes';
+import MyLists from './pages/MyLists';
 
 function App() {
   return (
     <div className="App">
-      <Routes />
+      {/* <Routes /> */}
+      <MyLists />
     </div>
   );
 }
