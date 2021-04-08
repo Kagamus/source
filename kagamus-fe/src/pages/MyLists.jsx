@@ -86,7 +86,7 @@ const styles = {
 		display: "flex",
     height: "2.4vmax",
     width:"8.2vmax",
-    marginLeft:"6.10vw",
+    marginLeft:"10.5vw",
     fontWeight:"500"
 
 	},
