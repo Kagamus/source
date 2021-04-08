@@ -5,7 +5,7 @@ import { options } from '../utils/constants.js'
 import SearchIcon from '@material-ui/icons/Search';
 import Header from '../components/Header';
 
-function Home() {
+const Home = () => {
 	const [genre, setGenre] = useState({ value: '', label: '' });
 	const [keyword, setKeyword] = useState("");
 	const [data, setData] = useState([])
@@ -24,7 +24,7 @@ function Home() {
 
 	return (
 		<div>
-			<Header currentPage={'Browse Lists'} userName={'Dijksrahul'} />
+			<Header currentPage={'Browse Lists'} userName={'Dijkstrahul'} />
 			<div style={styles.filterContainer}>
 				<Select
 					label="Single select"
