@@ -14,7 +14,7 @@ function Home() {
 	const [data, setData] = useState([])
 	const {search} = useLocation()
 	const {username,lastname} = queryString.parse(search)
-	console.log(username)
+	console.log("Username: ",username)
 
 	console.log(localStorage.getItem('userName'));
 	const [error, setError] = useState('')
@@ -46,7 +46,7 @@ function Home() {
 
 	return (
 		<div>
-			<Header currentPage={'Browse Lists'} userName= {lastname} />
+			<Header currentPage={'Browse Lists'} userName= {localStorage.getItem('userName').toString().valueOf()} />
 			<div style={styles.filterContainer}>
 				<Select
 					label="Single select"
@@ -79,6 +79,7 @@ function Home() {
 				return (
 					<div style={styles.cardContainer} key={i} >
 						{data_list.map((list, index) => {
+							console.log("List: ",list);
 							return (
 								<div style={{ margin: "2.5% 5%" }} key={index} >
 									<CardComponent animeListRequest={list} />
@@ -94,6 +95,7 @@ function Home() {
 }
 
 const styles = {
+	
 	mainSearchContainer: {
 		marginLeft: '5%',
 		marginRight: '10%'

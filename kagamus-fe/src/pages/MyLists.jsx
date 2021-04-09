@@ -4,14 +4,16 @@ import Select from 'react-select'
 import { options } from '../utils/constants.js'
 import AddIcon from '@material-ui/icons/Add';
 import Header from '../components/Header';
+import { useHistory } from "react-router";
 
 function Home() {
 	const [genre, setGenre] = useState({ value: '', label: '' });
 	const [keyword, setKeyword] = useState("");
 	const [data, setData] = useState([])
+	const history = useHistory();
 
 	const filterHandler = () => {
-		fetch(`http://localhost:9000/home?keyword=${keyword}&genre=${genre["value"]}`)
+		fetch(`http://localhost:9000/mylists?user=${localStorage.getItem('userName').toString().valueOf()}`)
 			.then(res => res.json())
 			.then(res => {
 				setData(res);
@@ -22,14 +24,19 @@ function Home() {
 		filterHandler();
 	}, []);
 
+	const routeToCreate = () => {
+
+        history.push("/create");
+    }
+
 	return (
 		<div>
-			<Header currentPage={'Browse Lists'} userName={'Dijksrahul'} />
+			<Header currentPage={'My Lists'} userName={localStorage.getItem('userName').toString().valueOf()} />
 			
       <div style={styles.pageAlign}>
       <div style={styles.myListHeader}>
         <p style={styles.myListTitle}>My Lists</p>
-        <button style={styles.createButton} onClick={() => { filterHandler(); }}>
+        <button style={styles.createButton} onClick={() => { routeToCreate(); }}>
           Create List <AddIcon style={styles.plusIcon}/>
         </button>
       </div>
@@ -62,12 +69,14 @@ const styles = {
     display:"flex",
     flexDirection:"row",
     alignItems:"center",
-    marginBottom:"0vmin"
+    marginBottom:"0vmin",
+	marginTop: "0vmin",
   },
   myListTitle: {
     marginRight: "9v",
     marginLeft: "19vw",
-    marginBottom:"7.5vh",
+    marginBottom:"2.92vh",
+	marginTop:"5.5vh",
     fontSize:"4vmax"
   },
   plusIcon: {
@@ -79,21 +88,22 @@ const styles = {
 		border: 'none',
 		backgroundColor: '#3c3c3c',
 		color: '#fff',
-    fontSize:"1.7vmin",
+		fontSize:"1.7vmin",
 		borderRadius: "5vmin",
 		alignItems: "center",
-    justifyContent:"center",
+		justifyContent:"center",
 		display: "flex",
-    height: "2.4vmax",
-    width:"8.2vmax",
-    marginLeft:"10.5vw",
-    fontWeight:"500"
+		height: "2.4vmax",
+		width:"8.2vmax",
+		marginLeft:"10.5vw",
+		fontWeight:"500",
 
 	},
 	cardContainer: {
 		flexDirection: "row",
 		display: "flex",
-		justifyContent: "center"
+		justifyContent: "center",
+		marginTop:"0vmin"
 	}
 }
 

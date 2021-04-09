@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import {Switch, Route ,BrowserRouter as Router} from "react-router-dom";
 import LoginPage from "./pages/Login";
 import Home from "./pages/Home";
+import MyLists from "./pages/MyLists";
+import CreateLists from "./pages/CreateList"
 
 
 // In this class we have declared our routes
@@ -21,7 +23,12 @@ export default class Routes extends Component {
                     <Route path="/home" exact>
                         <Home />
                     </Route>
-                  
+                    <Route path="/mylists" exact>
+                        <MyLists />
+                    </Route>
+                    <Route path="/create" exact>
+                        <CreateLists />
+                    </Route>
                     {/* <Route exact path="/home">
                     {isLogged ? <Redirect to="/" /> : <LoginPage />}
                     </Route>
