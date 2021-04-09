@@ -1,0 +1,76 @@
+.container::-webkit-scrollbar {
+    display: none;
+}
+  
+.container {
+    border-radius: 25px;
+    border :2px solid #000;
+    width: 32vmin;
+    height: 45vmin;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    padding-top: 10vmin;
+}
+
+.animeCard {
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    margin-top: -10vmin;
+    height: 10vmin;
+    width: 32vmin;
+    flex-direction: row;
+    display: flex;
+    border-bottom : 2px solid #000;
+    align-items: center;
+    background-color: #dddddd;
+    position: absolute;
+}
+
+.card{
+    height: 10vmin;
+    flex-direction: row;
+    display: flex;
+    border-top : 1px solid #000;
+    border-bottom : 1px solid #000;
+    align-items: center;
+}
+
+.card:hover{
+    background-color: #E3E3E3;
+    cursor: pointer;
+    transition: 0.75s;
+}
+
+.card:hover .goTOIcon{
+    opacity: 1;
+    transition: opacity 1s;
+}
+
+.goTOIcon {
+    margin-right: 4%;
+    opacity: 0;
+}
+
+.cardImage {
+    flex: 1.5;
+    padding: 10px;
+    height: 7vmin;
+    max-width: 5vmin;
+}
+
+.cardTitle {
+    flex: 8;
+    margin-left: 2%;
+}
+
+.animeTitle {
+    text-align: center;
+}
+
+.animeImage {
+    width: 7vmin;
+    padding: 10px;
+    height: 7vmin;
+    border-radius: 100%;
+}

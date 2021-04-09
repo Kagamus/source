@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import CardComponent from "../components/cardComponent.jsx";
+import React, { useState, useEffect, useCallback } from "react";
+import GeneralList from "../components/GeneralList";
 import Select from 'react-select'
 import { options } from '../utils/constants.js'
 import Header from '../components/Header';
@@ -13,9 +13,7 @@ import { useHistory, useLocation } from "react-router";
 
 function Home() {
 	const [genre, setGenre] = useState({ value: '', label: '' });
-	const [keyword, setKeyword] = useState("");
 	const [data, setData] = useState([]);
-    const [myAnimes, setMyAnimes] = useState([]);
     const [searchList, setSearchList] = useState([]);
 
     const [searchQuery, setSearchQuery] = useState("");
@@ -27,7 +25,7 @@ function Home() {
     const [title,setTitle] = useState("");
 
 	const fetchAnime = () => {
-        fetch(`http://localhost:9000/search?anime=${searchQuery}&offset=${(offset-1)*10}`)
+        fetch(`http://localhost:9000/search?anime=${"a"}&offset=${(offset-1)*10}`)
             .then(res => res.json())
             .then(res => {
                 setSearchList(res);
@@ -37,7 +35,10 @@ function Home() {
 
     useEffect(() => {
         fetchAnime();
+        // console.log("searchList: ",searchList);
     }, [offset]);
+
+
 
     const handleSearch = (e) => {
         if (e.key === 'Enter') {
@@ -46,6 +47,7 @@ function Home() {
                 .then(res => {
                     setSearchList(res);
                     // console.log(searchList);
+                    console.log("data: ",data);
                 });
         }
     }
@@ -57,44 +59,16 @@ function Home() {
                 <div style={styles.animeForm}>
                     <input style={styles.InputFields} type="text" placeholder="Title" onChange={e => setTitle(e.target.value)} />
                     <div style={styles.userList}>
-                        <h4>Add Anime</h4>
-                        {/* {data["AnimeList"].map((anime, i) => {
-                            return (
-                                <div className="card" key={i} onClick={() => {}} >
-                                    <img src={anime["main_picture"]["medium"]} alt="Anime" className="cardImage"></img>
-                                    <div className="cardTitle">
-                                        <p>{anime["title"]}</p>
-                                    </div>
-                                    <DeleteIcon className="goTOIcon" />
-                                </div>
-                            );
-			            })} */}
+                        <GeneralList animeListRequest={data} ActionButton={DeleteIcon} data={data} action={setData} addDel ="del" title={"Added Anime"}/>
                     </div>
+                    
                 </div>
                 <div style={styles.animeList}>
                     <div style={styles.mainSearchContainer}>
-                        <div style={styles.mainContainer}>
-                            <SearchIcon style={styles.icon} />
-                            <input style={styles.container} placeholder="Search for Anime" type="text" size='40'
-                                value={searchQuery} onChange={e => setSearchQuery(e.target.value)} onKeyDown={handleSearch} />
+                        <input style={styles.searchContainer} placeholder="Search for Anime" type="text" size='40'
+                            value={searchQuery} onChange={e => setSearchQuery(e.target.value)} onKeyDown={handleSearch} />
                         </div>
-                            {searchList.map((anime, i) => {
-                            return (
-                                <div style={styles.listContainer(i == searchList.length-1)} key={i} >
-                                    <img src={anime['main_picture']['large']} alt="anime" style={styles.animeImg} 
-                                    onClick= {() => {console.log("HIII");}} className='animeImg' style={styles.cardImage}/>
-                                    <div style={styles.animeInfoContainer} >
-                                        <p style={styles.animeTitle} className='animeListingTitle' onClick= {() => {console.log("HIII");}}>
-                                            {anime['title']} </p>
-                                    </div>
-                                    <div style={styles.followeButton} className='followeButton' onClick= {() => {console.log("BYEEE");}} >
-                                        <p style={{marginRight: '5%', fontSize: '15px'}} >Follow Page</p>
-                                        <AddIcon style={{ fontSize: '20px' }} />
-                                    </div>
-                                </div>
-                                )
-                            })}
-                    </div>
+                        <GeneralList animeListRequest={searchList} ActionButton={AddIcon} data={data} action={setData} addDel="add" title={"Search Results"}/>
                 </div>
             </div>
         </div>
@@ -102,6 +76,23 @@ function Home() {
 }
 
 const styles = {
+    mainContainer: {
+        // marginLeft: '20%',
+        flex: '5',
+        textAlign: 'center'
+    },
+    searchContainer: {
+        padding: "0.4vw 2vw",
+        borderRadius: '100px',
+        border: '1px solid #A4A4A4',
+        outline: 'none',
+        backgroundColor: 'rgba(256, 256, 256, 1)',
+        color: '#1E1E1E',
+        width:"75%",
+        margin:"2vh 0vw 2vh 0vw",
+        textAlign:"center",
+        justifyContent:"center"
+    },
     cardImage: {
         flex: "1.5",
         padding: "10px",
@@ -133,10 +124,13 @@ const styles = {
 		width: "10vw",
 	},
     animeList: {
-        backgroundColor: "blue",
-        padding: "0vh 9vw 0vh 9vw",
-        width: "20vw",
-        height: "40vh"
+        // backgroundColor: "lightblue",
+        padding: "0vh 5vw 5.5vh 5vw",
+        justifyContent:"center",
+        border:"0.2vw solid",
+        borderRadius:"13px",
+        margin:"5vh 0vw 0vh 10vw"
+        
     },
     animeForm: {
         // margin: "0vh 9vw 0vh 9vw",
@@ -150,18 +144,15 @@ const styles = {
         padding: "0vh 0 0 0",
         border: "0.1vh solid"
     },
-    mainSearchContainer: {
-        marginLeft: '5%',
-        marginRight: '10%'
-    },
-    searchContainer: {
-        padding: "10px 60px",
-        borderRadius: '100px',
-        border: '1px solid #333333',
-        outline: 'none',
-        color: '#333333',
-        flex: '1'
-    },
+
+    // searchContainer: {
+    //     padding: "10px 60px",
+    //     borderRadius: '100px',
+    //     border: '1px solid #333333',
+    //     outline: 'none',
+    //     color: '#333333',
+    //     flex: '1'
+    // },
     pageAlign: {
         display:"flex",
         flexDirection:"row",
@@ -171,7 +162,6 @@ const styles = {
         display:"flex",
         flexDirection:"row",
         alignItems:"center",
-        marginBottom:"0vmin"
     },
     myListTitle: {
         marginRight: "9v",
@@ -180,26 +170,8 @@ const styles = {
         fontSize:"4vmax"
     },
     plusIcon: {
-        paddingLeft: "1vmin"
-        
+        paddingLeft: "1vmin"  
     },
-    // Equivalent to the filterButton in the Home.jsx
-	createButton: {
-		outline: 'none',
-		border: 'none',
-		backgroundColor: '#3c3c3c',
-		color: '#fff',
-		fontSize:"1.7vmin",
-		borderRadius: "5vmin",
-		alignItems: "center",
-		justifyContent:"center",
-		display: "flex",
-		height: "2.4vmax",
-		width:"8.2vmax",
-		marginLeft:"10.5vw",
-		fontWeight:"500",
-
-	},
 }
 
 const customStyles = {

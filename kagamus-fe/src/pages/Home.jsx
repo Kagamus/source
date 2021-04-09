@@ -82,6 +82,7 @@ function Home() {
 							console.log("List: ",list);
 							return (
 								<div style={{ margin: "2.5% 5%" }} key={index} >
+									
 									<CardComponent animeListRequest={list} />
 								</div>
 							);
