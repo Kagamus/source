@@ -13,6 +13,8 @@ var searchAPIRouter = require('./routes/search');
 var loginRouter = require('./routes/login');
 var signUpRouter = require('./routes/signUp');
 var navigationRouter = require('./routes/navigationHandler');
+var createnewlistRouter = require('./routes/createnewList');
+var myListsRouter = require("./routes/myLists");
 var animeInfoRouter = require('./routes/animeInfo');
 
 var app = express();
@@ -34,6 +36,10 @@ app.use('/testAPI', testAPIRouter);
 app.use('/home', homeRouter);
 app.use('/search', searchAPIRouter);
 app.use('/signup', signUpRouter);
+app.use('/createnewList',createnewlistRouter);
+app.use('/mylists', myListsRouter);
+// app.use('/testAPI', testAPIRouter);
+// app.use('/login', loginRouter);
 app.use('/animeInfo', animeInfoRouter);
 
 // catch 404 and forward to error handler

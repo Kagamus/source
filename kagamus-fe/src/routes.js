@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import AnimeDisplay from "./pages/AnimeDisplay"
 import AnimeSearchList from "./pages/AnimeSearchList"
 import MyLists from "./pages/MyLists"
+import CreateList from "./pages/CreateList"
 
 // In this class we have declared our routes
 // We need this because these are what declare what happens when we go to "/" or "/home"
@@ -35,6 +36,9 @@ function Routes() {
                 </Route>
                 <Route path="/myLists" exact>
                     {user !== '' ? <MyLists /> : <Redirect to="/" />}                     
+                </Route>
+                <Route path="/createList" exact>
+                    {user !== '' ? <CreateList /> : <Redirect to="/" />}                     
                 </Route>
             </Switch>
         </Router>

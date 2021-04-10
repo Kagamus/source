@@ -4,11 +4,23 @@ import Select from 'react-select'
 import { options } from '../utils/constants.js'
 import SearchIcon from '@material-ui/icons/Search';
 import Header from '../components/Header';
+import { useHistory, useLocation } from 'react-router-dom'
+import queryString from 'query-string'
 
 const Home = () => {
 	const [genre, setGenre] = useState({ value: '', label: '' });
 	const [keyword, setKeyword] = useState("");
 	const [data, setData] = useState([])
+	const {search} = useLocation()
+	const {username,lastname} = queryString.parse(search)
+	console.log("Username: ",username)
+
+	console.log(localStorage.getItem('userName'));
+	const [error, setError] = useState('')
+
+	const location = useLocation()
+	const history = useHistory()
+
 
 	const filterHandler = () => {
 		fetch(`http://localhost:9000/home?keyword=${keyword}&genre=${genre["value"]}`)
@@ -19,12 +31,21 @@ const Home = () => {
 	}
 
 	useEffect(() => {
+		const queryParams = new URLSearchParams(location.search)
+		if (queryParams.has('error')) {
+		  setError('There was a problem.')
+		  queryParams.delete('error')
+		  history.replace({
+			search: queryParams.toString(),
+		  })
+		}
 		filterHandler();
-	}, []);
+	  }, [])
+
 
 	return (
 		<div>
-			<Header currentPage={'Browse Lists'} userName={'Dijkstrahul'} />
+			<Header currentPage={'Browse Lists'} />
 			<div style={styles.filterContainer}>
 				<Select
 					label="Single select"
@@ -57,9 +78,11 @@ const Home = () => {
 				return (
 					<div style={styles.cardContainer} key={i} >
 						{data_list.map((list, index) => {
+							console.log("List: ",list);
 							return (
 								<div style={{ margin: "2.5% 5%" }} key={index} >
-									<CardComponent animeListRequest={list} />
+									
+									<CardComponent animeListRequest={list} type={'browseList'} />
 								</div>
 							);
 						})}
@@ -72,6 +95,7 @@ const Home = () => {
 }
 
 const styles = {
+	
 	mainSearchContainer: {
 		marginLeft: '5%',
 		marginRight: '10%'

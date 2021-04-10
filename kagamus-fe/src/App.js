@@ -4,15 +4,15 @@ import { UserContext } from "./UserContext";
 
 function App() {
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(sessionStorage.getItem('user') || "");
 
   const value = useMemo(() => ({ user, setUser }), [user, setUser]);
 
   useEffect(() => {
-    setUser(sessionStorage.getItem('user') || "");
-    if (user === "") {
+    let loading = sessionStorage.getItem('user') || "";
+    if (loading === "") {
       sessionStorage.setItem('user', '');
-    };
+    } 
   }, []);
 
 
@@ -24,5 +24,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;

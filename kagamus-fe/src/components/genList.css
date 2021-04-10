@@ -1,0 +1,83 @@
+.containerGen::-webkit-scrollbar {
+    display: none;
+}
+  
+.containerGen {
+    /* border-radius: 25px;
+    border :2px solid #000; */
+    width: 56vmin;
+    height: 45vmin;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    padding-top: 10vmin;
+    border-radius: 20px;
+}
+
+.animeCardGen {
+    /* border-top-left-radius: 25px;
+    border-top-right-radius: 25px; */
+    text-align: center;
+    margin-top: -10vmin;
+    height: 7.5vmin;
+    width: 56vmin;
+    flex-direction: row;
+    display: flex;
+    border-radius: 20px;
+    align-items: center;
+    background-color: #FFFFFF;
+    position: absolute;
+}
+
+.cardGen{
+    
+    padding: 0vh 2vw 0vh 2vw;
+    height: 10vmin;
+    flex-direction: row;
+    display: flex;
+    /* border-top : 1px solid #000;
+    border-bottom : 1px solid #000; */
+    align-items: center;
+}
+
+.cardGen:hover{
+    background-color: #E3E3E3;
+    cursor: pointer;
+    transition: 0.75s;
+}
+
+.cardGen:hover .goTOIcon{
+    opacity: 1;
+    transition: opacity 1s;
+}
+
+.goTOIconGen {
+    margin-right: 4%;
+    opacity: 0;
+}
+
+.cardImageGen {
+    flex: 1.5;
+    padding: 10px;
+    height: 7vmin;
+    max-width: 5vmin;
+}
+
+.cardTitleGen {
+    flex: 8;
+    /* margin-left: 2%; */
+    margin: 0vmin;
+    text-align: "center";
+    font-size: 2vmin;
+}
+
+.animeTitleGen {
+    text-align: center;
+}
+
+.animeImageGen {
+    width: 7vmin;
+    padding: 10px;
+    height: 7vmin;
+    border-radius: 100%;
+}

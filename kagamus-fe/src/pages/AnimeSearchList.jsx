@@ -42,7 +42,7 @@ const AnimeSeatchList = () => {
 
     return (
         <div>
-            <Header currentPage={'Browse Lists'} userName={'Dijkstrahul'} />
+            <Header currentPage={'Browse Lists'} />
             <p style={styles.resultText}> Showing Results for "{q}" </p>
             {searchList !== [] ? <>
                 <div style={styles.mainContainer}>

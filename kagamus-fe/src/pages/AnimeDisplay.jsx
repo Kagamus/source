@@ -53,7 +53,7 @@ const AnimeDisplay = () => {
 
     return (
         <div >
-            <Header currentPage={'Browse Lists'} userName={'Dijkstrahul'} />
+            <Header currentPage={'Browse Lists'} />
             {data !== "" ?
                 <>
                     <div style={styles.displayContainer} >

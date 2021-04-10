@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import logo from "../images/1.png"
 import SearchBar from "./SearchBar"
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-
 import { useHistory } from 'react-router-dom'
+import { UserContext } from "../UserContext";
 
-const Header = ({ currentPage, userName }) => {
+const Header = ({ currentPage }) => {
+    const { user } = useContext(UserContext);
     let history = useHistory();
 
     const routeTo = (page) => {
@@ -28,7 +29,7 @@ const Header = ({ currentPage, userName }) => {
             </div>
             <div style={styles.userContainer}>
                 <AccountCircleIcon style={styles.icon} />
-                <p style={styles.userText} > {userName} </p>
+                <p style={styles.userText} > {user} </p>
             </div>
         </div>
     );
