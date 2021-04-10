@@ -8,8 +8,6 @@ var ObjectId = require('mongodb').ObjectID;
 
 router.get('/', function (req, res, next) {
 
-    // var jsonString = req.body;
-    // var jsonRequest = JSON.parse(JSON.stringify(jsonString));
     var id = req.query['id'];
 
     var query = {_id: ObjectId(id)}
@@ -24,12 +22,7 @@ router.get('/', function (req, res, next) {
             console.log(doc);
             res.send(doc);
          })
-       
-     
-        
     });
-
-
 });
 
 module.exports = router;

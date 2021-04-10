@@ -58,7 +58,7 @@ const AnimeSeatchList = () => {
                                         <Rating
                                             style={styles.rating(true)} name="read-only" value={4} readOnly size='small'
                                             emptyIcon={<StarBorderIcon fontSize="inherit" style={{ color: '#FB9C26' }} />} />
-                                        (4.76 - 10,205 Reviews)
+                                        ({Math.round((anime['mean'] / 2)*100)/100} - 10,205 Reviews)
                                     </div>
                                     <p style={styles.animeFollowers} > 10,1562 Followers </p>
                                     <div style={styles.followeButton} className='button' onClick= {() => {console.log("BYEEE");}} >

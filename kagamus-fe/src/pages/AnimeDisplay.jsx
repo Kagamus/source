@@ -79,20 +79,11 @@ const AnimeDisplay = () => {
                             <p style={{ fontSize: '8px', lineHeight: '0px', color: '#333' }} > Avg Rating </p>
                             <div style={{ flexDirection: 'row', display: 'flex', fontSize: '12px', color: '#FB9C26' }}>
                                 <Rating
-                                    style={styles.rating(true)} name="read-only" value={4} readOnly size='small'
+                                    style={styles.rating(true)} name="read-only" value={data['mean'] / 2} readOnly size='small'
                                     emptyIcon={<StarBorderIcon fontSize="inherit" style={{ color: '#FB9C26' }} />} />
-                                {4.76}
+                                {Math.round((data['mean'] / 2)*100)/100}
                             </div>
-                            <p style={{ fontSize: '8px', lineHeight: '0px', color: '#333' }} > Your Rating </p>
-                            <div style={{ flexDirection: 'row', display: 'flex', fontSize: '12px', color: '#444' }}>
-                                <Rating
-                                    style={styles.rating(false)} name="simple-controlled" precision={0.25}
-                                    size='small' value={ratingValue}
-                                    emptyIcon={<StarBorderIcon fontSize="inherit" style={{ color: '#545454' }} />}
-                                    onChange={(event, newValue) => { setRatingValue(newValue); }} />
-                                {ratingValue}
-                            </div>
-                            <div style={{ flexDirection: 'row', display: 'flex' }}>
+                            <div style={{ flexDirection: 'row', display: 'flex', marginTop: '2.5%' }}>
                                 {data['genres'].map((genre, i) => {
                                     return (
                                         <div style={styles.genreContainer} key={i} >
