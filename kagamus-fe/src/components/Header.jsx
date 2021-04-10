@@ -3,9 +3,17 @@ import logo from "../images/1.png"
 import SearchBar from "./SearchBar"
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
+import { useHistory } from 'react-router-dom'
+
 const Header = ({ currentPage, userName }) => {
-    const routeToBrowse = () => {
-        console.log("HIIIII");
+    let history = useHistory();
+
+    const routeTo = (page) => {
+        if (page === 'home') {
+            history.push(`/home`);
+        } else {
+            history.push(`/myLists`);
+        }
     }
 
     return (
@@ -13,8 +21,10 @@ const Header = ({ currentPage, userName }) => {
             <img style={styles.logo} src={logo} alt="Logo" />
             <SearchBar style={{ flex: '1' }} />
             <div style={{ flex: '2.5', flexDirection: 'row', textAlign: 'center' }}>
-                <p style={styles.navText(currentPage === 'Browse Lists')} onClick={routeToBrowse} > Browse Lists </p>
-                <p style={styles.navText(currentPage === 'My Lists')} > My Lists </p>
+                <p style={styles.navText(currentPage === 'Browse Lists')} 
+                className='navText' onClick={() => {routeTo('home');}} > Browse Lists </p>
+                <p style={styles.navText(currentPage === 'My Lists')}
+                className='navText' onClick={() => {routeTo('myLists');}} > My Lists </p>
             </div>
             <div style={styles.userContainer}>
                 <AccountCircleIcon style={styles.icon} />

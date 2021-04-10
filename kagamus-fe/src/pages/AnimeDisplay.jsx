@@ -6,8 +6,14 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 
+import { useHistory, useLocation } from 'react-router-dom'
+import queryString from 'query-string'
+
 const AnimeDisplay = () => {
-    var id = '21';
+    let history = useHistory();
+
+    const {search} = useLocation()
+	const { id } = queryString.parse(search)
     const [data, setData] = useState('');
     const [ratingValue, setRatingValue] = useState(3.5);
     const [mainImg, setMainImg] = useState('');
@@ -41,7 +47,9 @@ const AnimeDisplay = () => {
 
     useEffect(() => {
         fetchHandler();
-    }, []);
+        setShowRelated([0]);
+        setShowRecommended([0]);
+    }, [id]);
 
     return (
         <div >
@@ -56,13 +64,13 @@ const AnimeDisplay = () => {
                                     <img src={data['main_picture']['large']} alt="Other" style={styles.otherImage} />
                                 </div>
                                 {data['pictures'].map((pic, i) => {
-                                    if (i < 3 && pic['large'] != data['main_picture']['large']) {
+                                    if (i < 3 && pic['large'] !== data['main_picture']['large']) {
                                         return (
                                             <div onClick={() => { setMainImg(pic['medium']); }} key={i} >
                                                 <img src={pic['large']} alt="Other" style={styles.otherImage} />
                                             </div>
                                         )
-                                    }
+                                    } else {return (<></>)}
                                 })}
                             </div>
                         </div>
@@ -103,7 +111,8 @@ const AnimeDisplay = () => {
                             onClick={() => {handleRelated('left', 'related_anime');}} />   
                             {data['related_anime'].slice(showRelated, showRelated+5).map((anime, i) => {
                                 return (
-                                    <div key={i} style={styles.recommendedListContainer} className="recommendedListContainer" >
+                                    <div key={i} style={styles.recommendedListContainer} className="recommendedListContainer"
+                                    onClick={() => {history.push(`/animeDisplay?id=${anime['node']['id']}`);}} >
                                         <img src={anime['node']['main_picture']['large']} alt="Recommended"
                                         style={styles.recommendedListImg} />
                                         <br/> {anime['node']['title']}
@@ -121,7 +130,8 @@ const AnimeDisplay = () => {
                             onClick={() => {handleRelated('left', 'recommendations');}} />   
                             {data['recommendations'].slice(showRecommended, showRecommended+5).map((anime, i) => {
                                 return (
-                                    <div key={i} style={styles.recommendedListContainer} className="recommendedListContainer" >
+                                    <div key={i} style={styles.recommendedListContainer} className="recommendedListContainer"
+                                    onClick={() => {history.push(`/animeDisplay?id=${anime['node']['id']}`);}} >
                                         <img src={anime['node']['main_picture']['large']} alt="Recommended"
                                         style={styles.recommendedListImg} />
                                         <br/> {anime['node']['title']}
