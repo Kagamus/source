@@ -7,23 +7,19 @@ import { UserContext } from "../UserContext";
 
 function Home() {
 	const { user } = useContext(UserContext);
-	const [genre, setGenre] = useState({ value: '', label: '' });
-	const [keyword, setKeyword] = useState("");
 	const [data, setData] = useState([])
 	const history = useHistory();
 
-	const filterHandler = () => {
-		console.log(user);
-		fetch(`http://localhost:9000/mylists?user=${user}`)
-			.then(res => res.json())
-			.then(res => {
-				setData(res);
-			});
-	}
-
 	useEffect(() => {
+		const filterHandler = () => {
+			fetch(`http://localhost:9000/mylists?user=${user}`)
+				.then(res => res.json())
+				.then(res => {
+					setData(res);
+				});
+		}
 		filterHandler();
-	}, []);
+	}, [user]);
 
 	const routeToCreate = () => {
 
@@ -37,7 +33,7 @@ function Home() {
 			<div style={styles.pageAlign}>
 				<div style={styles.myListHeader}>
 					<p style={styles.myListTitle}>My Lists</p>
-					<button style={styles.createButton} onClick={() => { routeToCreate(); }}>
+					<button style={styles.createButton} className='button' onClick={() => { routeToCreate(); }}>
 						Create List <AddIcon style={styles.plusIcon} />
 					</button>
 				</div>
@@ -84,7 +80,6 @@ const styles = {
 	plusIcon: {
 		paddingLeft: "1vmin"
 	},
-	// Equivalent to the filterButton in the Home.jsx
 	createButton: {
 		outline: 'none',
 		border: 'none',
@@ -99,36 +94,13 @@ const styles = {
 		width: "8.2vmax",
 		marginLeft: "10.5vw",
 		fontWeight: "500",
+		marginTop: '3vmin'
 
 	},
 	cardContainer: {
 		flexDirection: "row",
 		display: "flex",
 		justifyContent: "center",
-		// marginTop:"0vmin"
-	}
-}
-
-const customStyles = {
-	menu: (provided, state) => ({
-		...provided,
-		width: state.selectProps.width,
-		marginTop: -0.5,
-		color: state.selectProps.menuColor,
-		padding: 20,
-	}),
-	control: (_, { selectProps: { width } }) => ({
-		border: '1px solid black',
-		display: 'flex',
-		borderRadius: '20px',
-		flexDirection: "row",
-		flex: "1",
-		width: width
-	}),
-	singleValue: (provided, state) => {
-		const opacity = state.isDisabled ? 0.5 : 1;
-		const transition = 'opacity 300ms';
-		return { ...provided, opacity, transition };
 	}
 }
 

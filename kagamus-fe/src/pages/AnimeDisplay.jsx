@@ -20,15 +20,6 @@ const AnimeDisplay = () => {
     const [showRelated, setShowRelated] = useState(0);
     const [showRecommended, setShowRecommended] = useState(0);
 
-    const fetchHandler = () => {
-        fetch(`http://localhost:9000/animeInfo?id=${id}`)
-            .then(res => res.json())
-            .then(res => {
-                setData(res);
-                setMainImg(res['main_picture']['large'])
-            });
-    }
-
     const handleRelated = (direction, type) => {
         if (direction === 'left') {
             if (showRelated > 4 && type === 'related_anime') {
@@ -39,6 +30,7 @@ const AnimeDisplay = () => {
         } else {
             if (showRelated + 5 < data['related_anime'].length && type === 'related_anime') {
                 setShowRelated(showRelated + 5);
+                // console.log(showRelated);
             } else if (showRecommended + 5 < data['recommendations'].length && type === 'recommendations') {
                 setShowRecommended(showRecommended + 5);
             }
@@ -46,9 +38,17 @@ const AnimeDisplay = () => {
     }
 
     useEffect(() => {
+        const fetchHandler = () => {
+            fetch(`http://localhost:9000/animeInfo?id=${id}`)
+                .then(res => res.json())
+                .then(res => {
+                    setData(res);
+                    setMainImg(res['main_picture']['large'])
+                });
+        }
         fetchHandler();
-        setShowRelated([0]);
-        setShowRecommended([0]);
+        setShowRelated(0);
+        setShowRecommended(0);
     }, [id]);
 
     return (
@@ -70,7 +70,7 @@ const AnimeDisplay = () => {
                                                 <img src={pic['large']} alt="Other" style={styles.otherImage} />
                                             </div>
                                         )
-                                    } else {return (<></>)}
+                                    } else {return (<div key={i}></div>)}
                                 })}
                             </div>
                         </div>
@@ -110,6 +110,7 @@ const AnimeDisplay = () => {
                             <KeyboardArrowLeftIcon style={{fontSize: '50px', marginTop: '8%', marginRight: '5%'}}
                             onClick={() => {handleRelated('left', 'related_anime');}} />   
                             {data['related_anime'].slice(showRelated, showRelated+5).map((anime, i) => {
+                                // console.log(showRelated);
                                 return (
                                     <div key={i} style={styles.recommendedListContainer} className="recommendedListContainer"
                                     onClick={() => {history.push(`/animeDisplay?id=${anime['node']['id']}`);}} >
