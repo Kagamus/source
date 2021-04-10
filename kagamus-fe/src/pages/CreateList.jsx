@@ -1,24 +1,24 @@
 import Select from 'react-select'
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { UserContext } from "../UserContext";
 import { options } from '../utils/constants.js'
 
 import GeneralList from "../components/GeneralList";
 import Header from '../components/Header';
-import SearchBar from '../components/SearchBar';
 
-import SearchIcon from '@material-ui/icons/Search';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 
 import { useHistory, useLocation } from "react-router";
-import { Button } from '@material-ui/core';
+
 
 function Home() {
+    const { user } = useContext(UserContext);
 	const [genre, setGenre] = useState({ value: '', label: '' });
 	const [data, setData] = useState([]);
     const [searchList, setSearchList] = useState([]);
-    const [user, setUsername] = useState();
+    // const [user, setUsername] = useState();
 
     const [searchQuery, setSearchQuery] = useState("");
 
@@ -39,12 +39,12 @@ function Home() {
 
     useEffect(() => {
         
-        const uName = localStorage.getItem('userName').toString().valueOf();
-        if(uName != ""){
+        // const uName = localStorage.getItem('userName').toString().valueOf();
+        // if(user != ""){
                 
-            console.log("Inside if",uName);
-            setUsername(uName);
-        }
+        //     console.log("Inside if",user);
+        //     setUsername(user);
+        // }
         fetchAnime();
         // console.log("searchList: ",searchList);
     }, [offset]);
@@ -103,7 +103,7 @@ function Home() {
 
 	return (
 		<div>
-			<Header currentPage={'Create List'} userName={user} />
+			<Header currentPage={'My Lists'} />
             <div style={styles.pageAlign}>
                 <div style={styles.animeForm}>
                     <input style={styles.InputFields} type="text" placeholder="Title" onChange={e => setTitle(e.target.value)} />
@@ -188,9 +188,10 @@ const styles = {
         // backgroundColor: "lightblue",
         padding: "0vh 0vw 0vh 0vw",
         justifyContent:"center",
-        border:"0.2vw solid",
+        border:"2px solid",
         borderRadius:"13px",
-        margin:"5vh 12vw 0vh 7vw"
+        margin:"5vh 12vw 0vh 7vw",
+        height: '75vmin'
         
     },
     // The user's list of anime
@@ -201,11 +202,12 @@ const styles = {
         textAlign: "center",
         justifyContent: "center",
         backgroundColor: "white",
-        margin:"1vh 7vw 0vh 14vw"
+        margin:"1vh 7vw 0vh 14vw",
     },
     userList: {
         padding: "0vh 0 0 0",
-        border: "0.1vh solid"
+        border: "2px solid",
+        borderRadius:"13px",
     },
 
     pageAlign: {

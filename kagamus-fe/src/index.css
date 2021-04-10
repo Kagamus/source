@@ -11,3 +11,43 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.descContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.recommendedListContainer:hover {
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 500ms;
+}
+
+.animeImg:hover {
+  cursor: pointer;
+  opacity: 0.75;
+  transition: opacity 500ms;
+}
+
+.followeButton:hover {
+  cursor: pointer;
+  opacity: 0.9;
+  transition: opacity 500ms;
+}
+
+.animeListingTitle:hover {
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 500ms;
+}
+
+.pageChange:hover {
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 500ms;
+}
+
+.navText:hover {
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 500ms;
+}

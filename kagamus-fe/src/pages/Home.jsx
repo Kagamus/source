@@ -7,8 +7,7 @@ import Header from '../components/Header';
 import { useHistory, useLocation } from 'react-router-dom'
 import queryString from 'query-string'
 
-function Home() {
-
+const Home = () => {
 	const [genre, setGenre] = useState({ value: '', label: '' });
 	const [keyword, setKeyword] = useState("");
 	const [data, setData] = useState([])
@@ -46,7 +45,7 @@ function Home() {
 
 	return (
 		<div>
-			<Header currentPage={'Browse Lists'} userName= {localStorage.getItem('userName').toString().valueOf()} />
+			<Header currentPage={'Browse Lists'} />
 			<div style={styles.filterContainer}>
 				<Select
 					label="Single select"

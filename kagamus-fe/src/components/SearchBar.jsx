@@ -1,18 +1,15 @@
 import React, { useState } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
 
+import { useHistory } from 'react-router-dom'
+
 const SearchBar = () => {
     const [searchQuery, setSearchQuery] = useState('');
-    const [searchList, setSearchList] = useState('');
+    let history = useHistory();
 
     const handleSearch = (event) => {
         if (event.key === 'Enter') {
-            fetch(`http://localhost:9000/search?anime=${searchQuery}`)
-                .then(res => res.json())
-                .then(res => {
-                    setSearchList(res);
-                    console.log(searchList);
-                });
+            history.push(`/animeSearch?q=${searchQuery}`);
         }
     }
 

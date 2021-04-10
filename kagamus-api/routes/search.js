@@ -4,8 +4,9 @@ const fetch = require('node-fetch');
 
 router.get("/", function(req, res, next) {
     var searchQuery = req.query['anime'];
+    var offset = req.query['offset'];
     var result = [];
-    fetch(`https://api.myanimelist.net/v0/anime?q=${searchQuery}&limit=10`)
+    fetch(`https://api.myanimelist.net/v0/anime?q=${searchQuery}&limit=10&offset=${offset}`)
         .then(response => response.json())
         .then(data => {
             var fetch_data = (data['data'])

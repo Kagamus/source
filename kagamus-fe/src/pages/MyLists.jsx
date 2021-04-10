@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import CardComponent from "../components/cardComponent.jsx";
-import Select from 'react-select'
-import { options } from '../utils/constants.js'
 import AddIcon from '@material-ui/icons/Add';
 import Header from '../components/Header';
 import { useHistory } from "react-router";
+import { UserContext } from "../UserContext";
 
 function Home() {
+	const { user } = useContext(UserContext);
 	const [genre, setGenre] = useState({ value: '', label: '' });
 	const [keyword, setKeyword] = useState("");
 	const [data, setData] = useState([])
 	const history = useHistory();
 
 	const filterHandler = () => {
-		fetch(`http://localhost:9000/mylists?user=${localStorage.getItem('userName').toString().valueOf()}`)
+		console.log(user);
+		fetch(`http://localhost:9000/mylists?user=${user}`)
 			.then(res => res.json())
 			.then(res => {
 				setData(res);
@@ -26,12 +27,12 @@ function Home() {
 
 	const routeToCreate = () => {
 
-        history.push("/create");
+        history.push("/createList");
     }
 
 	return (
 		<div>
-			<Header currentPage={'My Lists'} userName={localStorage.getItem('userName').toString().valueOf()} />
+			<Header currentPage={'My Lists'} />
 			
       <div style={styles.pageAlign}>
       <div style={styles.myListHeader}>

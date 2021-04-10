@@ -1,9 +1,12 @@
-import React, { useState } from "react";
-import { useHistory } from 'react-router-dom'
+import React, { useState, useContext } from "react";
+import { useHistory } from 'react-router-dom';
+import { UserContext } from "../UserContext";
 
 
 
 function Login() {
+  const { user, setUser } = useContext(UserContext);
+
   const [apiResponse, setApiResponse] = useState("");
   const [oldUsr, setOldUsr] = useState("");
   const [oldPwd, setOldPwd] = useState("");
@@ -22,15 +25,11 @@ function Login() {
         if (res === "Invalid") {
           console.log("Its not valid man!");
         } else if (res === "GoodToGo") {
-          
-          // So originally we had: localStorage.setItem('userName',JSON.stringify(oldUsr));
-          // But that led us having "" surrounding the string
-          localStorage.setItem('userName',oldUsr);
-          console.log("Its IS valid man!",oldUsr);
+          sessionStorage.setItem('user', oldUsr);
+          setUser(oldUsr);
           history.push("/home");
         }
         setApiResponse(res);
-        console.log(apiResponse);
         return res;
       });
 
