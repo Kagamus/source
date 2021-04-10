@@ -4,7 +4,6 @@ import '../components/genList.css';
 const GeneralList = ({ animeListRequest, ActionButton,data,action, addDel,title }) => {
 
 	const goTOInfoPage = (anime) => {
-        // console.log("")
         if(addDel === "add") {
         // We only need to check for ID because the IDs are all unique, in the context of the API
             if (data.some(dat => dat.id == anime.id) == false) {
@@ -14,16 +13,12 @@ const GeneralList = ({ animeListRequest, ActionButton,data,action, addDel,title 
         } else {
             action(data.filter(dat => dat.id !== anime.id));
         }
-        // console.log(data([data]));
-        // data(data => [...data, anime]);
     }
 
 	return (
 		<div className="containerGen" >
-			<div className="animeCardGen" >
-				
-                <p style={{ fontSize: '2vw', color: '#333333',  margin:" 0vh 0vw 0vh 0vw", width:"40vw",padding:"0vh 0vw 0vh 0vw"}} >{title}</p>
-
+			<div className="animeCardGen" >				
+                <p style={{ fontSize: '1.5vw', color: '#333333',  margin:"0", width:"40vw",padding:"0"}} >{title}</p>
 			</div>
 			{animeListRequest.map((anime, i) => {   
 				return (

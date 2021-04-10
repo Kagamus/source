@@ -11,6 +11,7 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
     padding-top: 10vmin;
+    border-radius: 20px;
 }
 
 .animeCardGen {
@@ -18,11 +19,11 @@
     border-top-right-radius: 25px; */
     text-align: center;
     margin-top: -10vmin;
-    height: 10vmin;
+    height: 7.5vmin;
     width: 56vmin;
     flex-direction: row;
     display: flex;
-    /* border-bottom : 2px solid #000; */
+    border-radius: 20px;
     align-items: center;
     background-color: #FFFFFF;
     position: absolute;
