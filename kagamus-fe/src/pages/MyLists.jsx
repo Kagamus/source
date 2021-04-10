@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import CardComponent from "../components/cardComponent.jsx";
-import Select from 'react-select'
-import { options } from '../utils/constants.js'
 import AddIcon from '@material-ui/icons/Add';
 import Header from '../components/Header';
 
@@ -20,11 +18,13 @@ function Home() {
 
 	useEffect(() => {
 		filterHandler();
+		setGenre('');
+		setKeyword('');
 	}, []);
 
 	return (
 		<div>
-			<Header currentPage={'Browse Lists'} userName={'Dijksrahul'} />
+			<Header currentPage={'My Lists'} userName={'Dijksrahul'} />
 			
       <div style={styles.pageAlign}>
       <div style={styles.myListHeader}>

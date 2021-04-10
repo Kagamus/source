@@ -7,8 +7,14 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 
+import { useLocation } from 'react-router-dom'
+import queryString from 'query-string'
+
 const AnimeSeatchList = () => {
-    var searchQuery = 'one';
+    const {search} = useLocation()
+	const { q } = queryString.parse(search)
+
+    // var searchQuery = 'one';
     const [searchList, setSearchList] = useState([]);
     const [offset, setOffset] = useState(1);
 
@@ -22,7 +28,7 @@ const AnimeSeatchList = () => {
     }
 
     const fetchAnime = () => {
-        fetch(`http://localhost:9000/search?anime=${searchQuery}&offset=${(offset-1)*10}`)
+        fetch(`http://localhost:9000/search?anime=${q}&offset=${(offset-1)*10}`)
             .then(res => res.json())
             .then(res => {
                 setSearchList(res);
@@ -32,17 +38,17 @@ const AnimeSeatchList = () => {
 
     useEffect(() => {
         fetchAnime();
-    }, [offset]);
+    }, [offset, q]);
 
     return (
         <div>
             <Header currentPage={'Browse Lists'} userName={'Dijkstrahul'} />
-            <p style={styles.resultText}> Showing Results for "{searchQuery}" </p>
+            <p style={styles.resultText}> Showing Results for "{q}" </p>
             {searchList !== [] ? <>
                 <div style={styles.mainContainer}>
                     {searchList.map((anime, i) => {
                         return (
-                            <div style={styles.listContainer(i == searchList.length-1)} key={i} >
+                            <div style={styles.listContainer(i === searchList.length-1)} key={i} >
                                 <img src={anime['main_picture']['large']} alt="anime" style={styles.animeImg} 
                                 onClick= {() => {console.log("HIII");}} className='animeImg' />
                                 <div style={styles.animeInfoContainer} >

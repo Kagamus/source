@@ -2,11 +2,15 @@ import React from "react";
 import './cardComponent.css';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
+import { useHistory } from 'react-router-dom'
+
 const Card_Component = ({ animeListRequest }) => {
 
 	const goTOInfoPage = (anime) => {
-        console.log(anime['id'] + '\n' + anime['title']);
+		history.push(`/animeDisplay?id=${anime['id']}`);
     }
+
+	let history = useHistory();
 
 	return (
 		<div className="container" >

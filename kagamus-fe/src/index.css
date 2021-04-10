@@ -45,3 +45,9 @@ code {
   opacity: 0.7;
   transition: opacity 500ms;
 }
+
+.navText:hover {
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 500ms;
+}
