@@ -82,7 +82,7 @@ const Home = () => {
 							return (
 								<div style={{ margin: "2.5% 5%" }} key={index} >
 									
-									<CardComponent animeListRequest={list} />
+									<CardComponent animeListRequest={list} type={'browseList'} />
 								</div>
 							);
 						})}

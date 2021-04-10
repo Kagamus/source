@@ -3,7 +3,7 @@
 }
   
 .container {
-    border-radius: 25px;
+    border-radius: 15px;
     border :2px solid #000;
     width: 32vmin;
     height: 45vmin;
@@ -14,8 +14,8 @@
 }
 
 .animeCard {
-    border-top-left-radius: 25px;
-    border-top-right-radius: 25px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
     margin-top: -10vmin;
     height: 10vmin;
     width: 32vmin;
@@ -73,4 +73,46 @@
     padding: 10px;
     height: 7vmin;
     border-radius: 100%;
+}
+
+.menuIcon {
+    font-size: 40px;
+}
+
+.editMenu {
+    border: 2px solid black;
+    position: absolute;
+    height: 7vmin;
+    width: 6vmin;
+    border-radius: 5px;
+    margin-left: 30.5vmin;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFF;
+}
+
+.divider {
+    height: 1.5px;
+    width: 6.5vmin;
+    background-color: black;
+}
+
+.menu:hover {
+    cursor: pointer;
+    background-color: rgb(230, 230, 230);
+    transition: background-color 700ms;
+}
+
+.menu {
+    width: 6vmin;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 3.5vmin;
+    /* border-bottom: 1.5px solid black; */
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
