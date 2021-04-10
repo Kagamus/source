@@ -26,9 +26,10 @@ router.get('/', function (req, res, next) {
           temp = [];
         }
         temp.push(fetch_data[i])
+        console.log("temp ",i,": ",result);
       }
       temp != [] ? result.push(temp) : null;
-      console.log(result);
+      console.log("result: ",result);
       res.send(result);
       db.close();
     });

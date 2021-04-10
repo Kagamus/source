@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useCallback } from "react";
-import GeneralList from "../components/GeneralList";
 import Select from 'react-select'
+
+import React, { useState, useEffect, useCallback } from "react";
 import { options } from '../utils/constants.js'
+
+import GeneralList from "../components/GeneralList";
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 
@@ -10,11 +12,13 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 
 import { useHistory, useLocation } from "react-router";
+import { Button } from '@material-ui/core';
 
 function Home() {
 	const [genre, setGenre] = useState({ value: '', label: '' });
 	const [data, setData] = useState([]);
     const [searchList, setSearchList] = useState([]);
+    const [user, setUsername] = useState();
 
     const [searchQuery, setSearchQuery] = useState("");
 
@@ -34,12 +38,57 @@ function Home() {
     }
 
     useEffect(() => {
+        
+        const uName = localStorage.getItem('userName').toString().valueOf();
+        if(uName != ""){
+                
+            console.log("Inside if",uName);
+            setUsername(uName);
+        }
         fetchAnime();
         // console.log("searchList: ",searchList);
     }, [offset]);
 
 
-
+    const insertToDB = () => {
+        if (user == "") {
+            alert("Internal Error.");
+        }
+        else if (title == "") {
+            alert("Please enter the title.");
+        }
+        else if (genre == "") {
+            alert("Please enter the genre.");
+        } 
+        else if(data == []) {
+            alert("Please add some anime.")
+        } else {
+            console.log("Name: ",user);
+            console.log("Title: ",title);
+            console.log("Genre: ",genre);
+            console.log("List: ", data);
+            const currList = {"Genre": genre.value, "username": user, "AnimeListTitle": title, "AnimeList": data};
+            console.log(JSON.parse(JSON.stringify(currList)));
+            console.log();
+            fetch(`http://localhost:9000/createnewList`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                  body: JSON.stringify(currList)
+                })
+                .then(res => res.json())
+                .then(res => {
+                    // setSearchList(res);
+                    // console.log(searchList);
+                    console.log("data: ",data);
+            });
+        }
+        
+        
+        
+    }
     const handleSearch = (e) => {
         if (e.key === 'Enter') {
             fetch(`http://localhost:9000/search?anime=${searchQuery}`)
@@ -54,14 +103,26 @@ function Home() {
 
 	return (
 		<div>
-			<Header currentPage={'Create List'} userName={localStorage.getItem('userName').toString().valueOf()} />
+			<Header currentPage={'Create List'} userName={user} />
             <div style={styles.pageAlign}>
                 <div style={styles.animeForm}>
                     <input style={styles.InputFields} type="text" placeholder="Title" onChange={e => setTitle(e.target.value)} />
                     <div style={styles.userList}>
                         <GeneralList animeListRequest={data} ActionButton={DeleteIcon} data={data} action={setData} addDel ="del" title={"Added Anime"}/>
                     </div>
-                    
+                    <Select
+                        label="Single select"
+                        placeholder={"Select Genre"}
+                        styles={customStyles}
+                        onChange={setGenre}
+                        width="25vmin"
+                        menuColor="#1E1E1E"
+                        options={options}
+				    />
+                    <button style={styles.createButton} onClick={() => {insertToDB()}}>
+                        Create List 
+                    </button>
+
                 </div>
                 <div style={styles.animeList}>
                     <div style={styles.mainSearchContainer}>
@@ -77,7 +138,6 @@ function Home() {
 
 const styles = {
     mainContainer: {
-        // marginLeft: '20%',
         flex: '5',
         textAlign: 'center'
     },
@@ -123,40 +183,38 @@ const styles = {
 		background: "white",
 		width: "10vw",
 	},
+    // Our list to them
     animeList: {
         // backgroundColor: "lightblue",
-        padding: "0vh 5vw 5.5vh 5vw",
+        padding: "0vh 0vw 0vh 0vw",
         justifyContent:"center",
         border:"0.2vw solid",
         borderRadius:"13px",
-        margin:"5vh 0vw 0vh 10vw"
+        margin:"5vh 12vw 0vh 7vw"
         
     },
+    // The user's list of anime
     animeForm: {
-        // margin: "0vh 9vw 0vh 9vw",
-        alignContent: "center",
+        display: "flex",
+        flexDirection:"column",
+        alignItems: "center",
         textAlign: "center",
         justifyContent: "center",
-        //The background and padding is there just for debugging
-        backgroundColor: "gray",
+        backgroundColor: "white",
+        margin:"1vh 7vw 0vh 14vw"
     },
     userList: {
         padding: "0vh 0 0 0",
         border: "0.1vh solid"
     },
 
-    // searchContainer: {
-    //     padding: "10px 60px",
-    //     borderRadius: '100px',
-    //     border: '1px solid #333333',
-    //     outline: 'none',
-    //     color: '#333333',
-    //     flex: '1'
-    // },
     pageAlign: {
         display:"flex",
         flexDirection:"row",
-        alignItems:"center"
+        alignItems:"center",
+        textAlign:"center",
+        padding:"0vmin"
+        
     },
     myListHeader: {
         display:"flex",
@@ -172,6 +230,21 @@ const styles = {
     plusIcon: {
         paddingLeft: "1vmin"  
     },
+    createButton: {
+		outline: 'none',
+		border: 'none',
+		backgroundColor: '#3c3c3c',
+		color: '#fff',
+		fontSize:"1.7vmin",
+		borderRadius: "5vmin",
+		alignItems: "center",
+		justifyContent:"center",
+		display: "flex",
+		height: "2.4vmax",
+		width:"8.2vmax",
+		fontWeight:"500",
+
+	},
 }
 
 const customStyles = {

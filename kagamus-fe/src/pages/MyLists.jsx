@@ -40,7 +40,7 @@ function Home() {
           Create List <AddIcon style={styles.plusIcon}/>
         </button>
       </div>
-
+			
 			{data.map((data_list, i) => {
 				return (
 					<div style={styles.cardContainer} key={i} >

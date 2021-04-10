@@ -1,6 +1,5 @@
 import React from "react";
 import '../components/genList.css';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 const GeneralList = ({ animeListRequest, ActionButton,data,action, addDel,title }) => {
 
@@ -20,27 +19,32 @@ const GeneralList = ({ animeListRequest, ActionButton,data,action, addDel,title 
     }
 
 	return (
-		<div className="container" >
-			<div className="animeCard" style={{}}>
-				{/* <img src={animeListRequest[0]["main_picture"]["medium"]}
-					alt="Profile" className="animeImage"></img> */}
-                    {/* <p style={{ fontWeight: 'bold', color: '#333333', fontSize: '16px'}} >Search Results</p> */}
-                <p style={{ fontSize: '2vw', color: '#333333',  margin:" 0vh 0vw 0vh 0vw", width:"8vw",padding:"0vh 32% 0vh 32%"}} >{title}</p>
+		<div className="containerGen" >
+			<div className="animeCardGen" >
+				
+                <p style={{ fontSize: '2vw', color: '#333333',  margin:" 0vh 0vw 0vh 0vw", width:"40vw",padding:"0vh 0vw 0vh 0vw"}} >{title}</p>
 
 			</div>
 			{animeListRequest.map((anime, i) => {   
 				return (
-					<div className="card" key={i}  >
-						<img src={anime["main_picture"]["medium"]} alt="Anime" className="cardImage"></img>
-						<div className="cardTitle">
+					<div className="cardGen" key={i}  >
+						<img src={anime["main_picture"]["medium"]} alt="Anime" className="cardImageGen"></img>
+						<div className="cardTitleGen">
 							<p>{anime["title"]}</p>
 						</div>
-						<ActionButton className="goTOIcon" onClick={() => {goTOInfoPage(anime)}}/>
+						<ActionButton style={styles.icon(addDel === "del")} className="goTOIcoGen" onClick={() => {goTOInfoPage(anime)}}/>
 					</div>
 				);
 			})}
 		</div>
 	);
 }
+const styles = {
 
+	icon:isDel => ({
+		color:isDel ? "red" : "black"
+	})
+
+
+}
 export default GeneralList;
