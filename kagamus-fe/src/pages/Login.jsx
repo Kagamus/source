@@ -5,16 +5,17 @@ import { UserContext } from "../UserContext";
 
 
 function Login() {
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
 
-  const [apiResponse, setApiResponse] = useState("");
   const [oldUsr, setOldUsr] = useState("");
   const [oldPwd, setOldPwd] = useState("");
+  const [valid, setValid] = useState("");
 
   const [newUsr, setNewUsr] = useState("");
   const [newPwd, setNewPwd] = useState("");
   const [newPwdConf, setnewPwdConf] = useState("");
   const [newEmail, setNewEmail] = useState("");
+
 
   let history = useHistory();
 
@@ -23,13 +24,12 @@ function Login() {
       .then(res => res.text())
       .then(res => {
         if (res === "Invalid") {
-          console.log("Its not valid man!");
+          setValid('Please enter valid credentials');
         } else if (res === "GoodToGo") {
           sessionStorage.setItem('user', oldUsr);
           setUser(oldUsr);
           history.push("/home");
         }
-        setApiResponse(res);
         return res;
       });
 
@@ -45,7 +45,6 @@ function Login() {
           } else {
             console.log(res);
           }
-          setApiResponse(res);
         });
     } else {
       console.log("INVALID")
@@ -69,6 +68,7 @@ function Login() {
           <input style={styles.InputFields} type="password" placeholder="Password" onChange={e => setOldPwd(e.target.value)} />
           <a style={styles.ForgotPassword} href="placeholder">forgot password?</a>
           <button style={styles.SignIn} onClick={(e) => login()}>Sign In</button>
+          <p style={{color: 'red', fontSize: '16px'}} > {valid} </p>
 
         </div>
         <div style={styles.SignUpBackground}>

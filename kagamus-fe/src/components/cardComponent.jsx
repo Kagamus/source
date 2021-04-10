@@ -17,6 +17,26 @@ const Card_Component = ({ animeListRequest, type }) => {
 
 	let history = useHistory();
 
+	const handleDelete = () => {
+		fetch(`http://localhost:9000/deleteList`, {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(animeListRequest)
+		})
+			.then(res => res.json())
+			.then(res => {
+				console.log(res);
+				window.location.reload();
+			});
+	}
+
+	const handleEdit = () => {
+		history.push(`/createList?id=${animeListRequest['_id']}`);
+	}
+
 	return (
 		<div className="container" >
 			<div className="animeCard">
@@ -32,11 +52,11 @@ const Card_Component = ({ animeListRequest, type }) => {
 					{showMenu ? 
 					<>
 						<div className='editMenu' >
-							<div className='menu'>
+							<div className='menu' onClick={() => {handleDelete()}}>
 								<DeleteIcon style={{fontSize: '20px', color: 'red'}} />
 							</div>
 							<div className='divider' ></div>
-							<div className='menu' >
+							<div className='menu' onClick={() => {handleEdit()}} >
 								<EditIcon style={{fontSize: '20px'}} />
 							</div>							
 						</div>

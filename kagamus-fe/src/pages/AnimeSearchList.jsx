@@ -7,14 +7,14 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 
-import { useLocation } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import queryString from 'query-string'
 
 const AnimeSeatchList = () => {
+    let history = useHistory();
     const {search} = useLocation()
 	const { q } = queryString.parse(search)
 
-    // var searchQuery = 'one';
     const [searchList, setSearchList] = useState([]);
     const [offset, setOffset] = useState(1);
 
@@ -27,16 +27,15 @@ const AnimeSeatchList = () => {
         }
     }
 
-    const fetchAnime = () => {
-        fetch(`http://localhost:9000/search?anime=${q}&offset=${(offset-1)*10}`)
-            .then(res => res.json())
-            .then(res => {
-                setSearchList(res);
-                console.log(searchList);
-            });
-    }
-
     useEffect(() => {
+        const fetchAnime = () => {
+            fetch(`http://localhost:9000/search?anime=${q}&offset=${(offset-1)*10}`)
+                .then(res => res.json())
+                .then(res => {
+                    setSearchList(res);
+                    // console.log(searchList);
+                });
+        }
         fetchAnime();
     }, [offset, q]);
 
@@ -50,9 +49,10 @@ const AnimeSeatchList = () => {
                         return (
                             <div style={styles.listContainer(i === searchList.length-1)} key={i} >
                                 <img src={anime['main_picture']['large']} alt="anime" style={styles.animeImg} 
-                                onClick= {() => {console.log("HIII");}} className='animeImg' />
+                                onClick= {() => {history.push(`/animeDisplay?id=${anime['id']}`)}} className='animeImg' />
                                 <div style={styles.animeInfoContainer} >
-                                    <p style={styles.animeTitle} className='animeListingTitle' onClick= {() => {console.log("HIII");}}>
+                                    <p style={styles.animeTitle} className='animeListingTitle' 
+                                    onClick= {() => {history.push(`/animeDisplay?id=${anime['id']}`)}}>
                                          {anime['title']} </p>
                                     <div style={styles.ratingContainer}>
                                         <Rating
@@ -61,7 +61,7 @@ const AnimeSeatchList = () => {
                                         (4.76 - 10,205 Reviews)
                                     </div>
                                     <p style={styles.animeFollowers} > 10,1562 Followers </p>
-                                    <div style={styles.followeButton} className='followeButton' onClick= {() => {console.log("BYEEE");}} >
+                                    <div style={styles.followeButton} className='button' onClick= {() => {console.log("BYEEE");}} >
                                         <p style={{marginRight: '5%', fontSize: '15px'}} >Follow Page</p>
                                         <PersonAddIcon style={{ fontSize: '20px' }} />
                                     </div>

@@ -10,44 +10,80 @@ import Header from '../components/Header';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 
+import { useHistory, useLocation } from 'react-router-dom'
+import queryString from 'query-string'
+
 function Home() {
     const { user } = useContext(UserContext);
+    const {search} = useLocation()
+	const { id } = queryString.parse(search)
+
     const [genre, setGenre] = useState({ value: '', label: '' });
     const [data, setData] = useState([]);
     const [searchList, setSearchList] = useState([]);
-
+    const history = useHistory();
     const [searchQuery, setSearchQuery] = useState("");
 
-    const [offset, setOffset] = useState(1);
+    let offset = 1
+    // const [offset, setOffset] = useState(1);
 
     const [title, setTitle] = useState("");
 
+    // console.log(id);
+
+    useEffect(() => {
+        if(id) {
+            fetch(`http://localhost:9000/findanimeList?id=${id}`)
+            .then(res => res.json())
+            .then(res => {
+                setGenre({value: res['Genre'], label: res['Genre']});
+                setData(res['AnimeList']);
+                setTitle(res['AnimeListTitle']);
+            });
+        }
+    }, [id]);
+
     const insertToDB = () => {
-        if (user == "") {
+        if (user === "") {
             alert("Internal Error.");
         }
-        else if (title == "") {
+        else if (title === "") {
             alert("Please enter the title.");
         }
-        else if (genre == "") {
+        else if (genre.value === "" || genre.value === "clear") {
             alert("Please enter the genre.");
         }
-        else if (data == []) {
+        else if (data.length === 0) {
             alert("Please add some anime.")
         } else {
-            const currList = { "Genre": genre.value, "username": user, "AnimeListTitle": title, "AnimeList": data };
-            fetch(`http://localhost:9000/createnewList`, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(currList)
-            })
-                .then(res => res.json())
-                .then(res => {
-                    console.log("data: ", data);
-                });
+            const currList = { "_id": id, "Genre": genre.value, "username": user, "AnimeListTitle": title, "AnimeList": data };
+            if(id) {
+                fetch(`http://localhost:9000/updateList`, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(currList)
+                })
+                    .then(res => res.json())
+                    .then(res => {
+                        history.replace("./myLists");
+                    });
+            } else {                
+                fetch(`http://localhost:9000/createnewList`, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(currList)
+                })
+                    .then(res => res.json())
+                    .then(res => {
+                        history.replace("./myLists");
+                    });
+            }
         }
     }
 
@@ -67,7 +103,7 @@ function Home() {
             <Header currentPage={'My Lists'} />
             <div style={styles.pageAlign}>
                 <div style={styles.animeForm}>
-                    <input style={styles.InputFields} type="text" placeholder="Title" onChange={e => setTitle(e.target.value)} />
+                    <input style={styles.InputFields} value={title} type="text" placeholder="Title" onChange={e => setTitle(e.target.value)} />
                     <div style={styles.userList}>
                         <GeneralList animeListRequest={data} ActionButton={DeleteIcon} data={data} action={setData} addDel="del" title={"Added Anime"} />
                     </div>
@@ -79,9 +115,10 @@ function Home() {
                         width="25vmin"
                         menuColor="#1E1E1E"
                         options={options}
+                        value={genre}
                     />
-                    <button style={styles.createButton} onClick={() => { insertToDB() }}>
-                        Create List
+                    <button style={styles.createButton} className='button' onClick={() => { insertToDB() }}>
+                        {id ? 'Edit List' : 'Create List'}
                     </button>
 
                 </div>
@@ -131,8 +168,8 @@ const styles = {
 
     }),
     InputFields: {
-        border: "none",
-        margin: "12vh 0vh 3vh 0vh",
+        // border: "none",
+        margin: "6vh 0vh 3vh 0vh",
         borderRadius: "100vw",
         border: "solid 0.10vw",
         outline: "none",
@@ -142,7 +179,6 @@ const styles = {
         opacity: 1.0,
         fontFamily: "Proxima Nova",
         fontSize: "0.8vw",
-        background: "white",
         width: "15vw",
     },
     // Our list to them
@@ -151,7 +187,7 @@ const styles = {
         justifyContent: "center",
         border: "2px solid",
         borderRadius: "13px",
-        margin: "5vh 12vw 0vh 7vw",
+        margin: "-2vh 12vw 0vh 7vw",
         height: '75vmin'
 
     },
@@ -163,12 +199,14 @@ const styles = {
         textAlign: "center",
         justifyContent: "center",
         backgroundColor: "white",
-        margin: "1vh 7vw 0vh 14vw",
+        margin: "0vh 7vw 0vh 14vw",
+        padding:"0vh 0vh 0vh 0vh",
     },
     userList: {
         padding: "0vh 0 0 0",
         border: "2px solid",
         borderRadius: "13px",
+        marginBottom:"4vh"
     },
 
     pageAlign: {
@@ -206,6 +244,8 @@ const styles = {
         height: "2.4vmax",
         width: "8.2vmax",
         fontWeight: "500",
+        marginTop:"4vh",
+        marginBottom:"0vh"
 
     },
 }
@@ -217,6 +257,8 @@ const customStyles = {
         marginTop: -0.5,
         color: state.selectProps.menuColor,
         padding: 20,
+        top: "auto", 
+        bottom: "100%"
     }),
     control: (_, { selectProps: { width } }) => ({
         border: '1px solid black',

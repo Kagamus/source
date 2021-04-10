@@ -6,7 +6,7 @@ const GeneralList = ({ animeListRequest, ActionButton,data,action, addDel,title 
 	const goTOInfoPage = (anime) => {
         if(addDel === "add") {
         // We only need to check for ID because the IDs are all unique, in the context of the API
-            if (data.some(dat => dat.id == anime.id) == false) {
+            if (data.some(dat => dat.id === anime.id) === false) {
                 action(data.concat(anime));
                 console.log("Changed Data in GeneralList");
             }

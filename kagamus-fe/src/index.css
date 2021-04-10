@@ -28,7 +28,7 @@ code {
   transition: opacity 500ms;
 }
 
-.followeButton:hover {
+.button:hover {
   cursor: pointer;
   opacity: 0.9;
   transition: opacity 500ms;

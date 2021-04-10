@@ -3,7 +3,7 @@ var router = express.Router();
 var rq = require('request');
 
 var MongoClient = require('mongodb').MongoClient;
-var urls = "mongodb://localhost:27017/";
+var urls = "mongodb+srv://kagamus_admin:vOsASAZMOq3JFkii@cluster0.ohyri.mongodb.net/test";
 
 
 router.post('/', function (req, res, next) {
