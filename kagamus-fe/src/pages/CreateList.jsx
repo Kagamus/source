@@ -1,6 +1,7 @@
 import Select from 'react-select'
 
 import React, { useState, useEffect, useContext } from "react";
+import {useHistory} from "react-router-dom";
 import { UserContext } from "../UserContext";
 import { options } from '../utils/constants.js'
 
@@ -15,7 +16,7 @@ function Home() {
     const [genre, setGenre] = useState({ value: '', label: '' });
     const [data, setData] = useState([]);
     const [searchList, setSearchList] = useState([]);
-
+    const history = useHistory();
     const [searchQuery, setSearchQuery] = useState("");
 
     const [offset, setOffset] = useState(1);
@@ -29,10 +30,10 @@ function Home() {
         else if (title == "") {
             alert("Please enter the title.");
         }
-        else if (genre == "") {
+        else if (genre.value == "" || genre.value == "clear") {
             alert("Please enter the genre.");
         }
-        else if (data == []) {
+        else if (data.length == 0) {
             alert("Please add some anime.")
         } else {
             const currList = { "Genre": genre.value, "username": user, "AnimeListTitle": title, "AnimeList": data };
@@ -47,6 +48,7 @@ function Home() {
                 .then(res => res.json())
                 .then(res => {
                     console.log("data: ", data);
+                    history.replace("./myLists");
                 });
         }
     }
@@ -132,7 +134,7 @@ const styles = {
     }),
     InputFields: {
         border: "none",
-        margin: "12vh 0vh 3vh 0vh",
+        margin: "6vh 0vh 3vh 0vh",
         borderRadius: "100vw",
         border: "solid 0.10vw",
         outline: "none",
@@ -142,7 +144,6 @@ const styles = {
         opacity: 1.0,
         fontFamily: "Proxima Nova",
         fontSize: "0.8vw",
-        background: "white",
         width: "15vw",
     },
     // Our list to them
@@ -151,7 +152,7 @@ const styles = {
         justifyContent: "center",
         border: "2px solid",
         borderRadius: "13px",
-        margin: "5vh 12vw 0vh 7vw",
+        margin: "-2vh 12vw 0vh 7vw",
         height: '75vmin'
 
     },
@@ -163,12 +164,14 @@ const styles = {
         textAlign: "center",
         justifyContent: "center",
         backgroundColor: "white",
-        margin: "1vh 7vw 0vh 14vw",
+        margin: "0vh 7vw 0vh 14vw",
+        padding:"0vh 0vh 0vh 0vh",
     },
     userList: {
         padding: "0vh 0 0 0",
         border: "2px solid",
         borderRadius: "13px",
+        marginBottom:"4vh"
     },
 
     pageAlign: {
@@ -206,6 +209,8 @@ const styles = {
         height: "2.4vmax",
         width: "8.2vmax",
         fontWeight: "500",
+        marginTop:"4vh",
+        marginBottom:"0vh"
 
     },
 }
@@ -217,6 +222,8 @@ const customStyles = {
         marginTop: -0.5,
         color: state.selectProps.menuColor,
         padding: 20,
+        top: "auto", 
+        bottom: "100%"
     }),
     control: (_, { selectProps: { width } }) => ({
         border: '1px solid black',
