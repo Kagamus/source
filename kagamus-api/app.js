@@ -16,6 +16,9 @@ var navigationRouter = require('./routes/navigationHandler');
 var createnewlistRouter = require('./routes/createnewList');
 var myListsRouter = require("./routes/myLists");
 var animeInfoRouter = require('./routes/animeInfo');
+var deleteList = require('./routes/deleteList');
+var updateList = require('./routes/updateList');
+var findanimeList = require('./routes/findanimeList');
 
 var app = express();
 
@@ -41,6 +44,9 @@ app.use('/mylists', myListsRouter);
 // app.use('/testAPI', testAPIRouter);
 // app.use('/login', loginRouter);
 app.use('/animeInfo', animeInfoRouter);
+app.use('/deleteList', deleteList);
+app.use('/updateList',updateList);
+app.use('/findanimeList',findanimeList);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
